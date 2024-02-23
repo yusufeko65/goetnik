@@ -1,0 +1,7 @@
+[12-May-2019 08:35:18 Asia/Jakarta] PHP Notice:  Undefined offset: 142 in /home/goetnik1/public_html/nibras.co.id/panelnibras/view/lap-produk/exportexcel_perkategori.php on line 44
+[12-May-2019 08:35:18 Asia/Jakarta] PHP Notice:  Undefined offset: 142 in /home/goetnik1/public_html/nibras.co.id/panelnibras/view/lap-produk/exportexcel_perkategori.php on line 45
+[12-May-2019 08:35:18 Asia/Jakarta] PHP Notice:  Undefined offset: 142 in /home/goetnik1/public_html/nibras.co.id/panelnibras/view/lap-produk/exportexcel_perkategori.php on line 46
+[12-May-2019 08:35:18 Asia/Jakarta] PHP Notice:  Undefined offset: 0 in /home/goetnik1/public_html/nibras.co.id/panelnibras/view/lap-produk/exportexcel_perkategori.php on line 47
+[24-Aug-2022 13:20:46 Asia/Jakarta] PHP Fatal error:  Class 'ZipArchive' not found in /home/nibrasc01/public_html/nibras_co_id/panelnibras/_includes/PHPExcel/Writer/Excel2007.php on line 227
+[24-Aug-2022 13:21:39 Asia/Jakarta] PHP Fatal error:  Class 'ZipArchive' not found in /home/nibrasc01/public_html/nibras_co_id/panelnibras/_includes/PHPExcel/Writer/Excel2007.php on line 227
+[24-Aug-2022 13:22:10 Asia/Jakarta] PHP Fatal error:  Class 'ZipArchive' not found in /home/nibrasc01/public_html/nibras_co_id/panelnibras/_includes/PHPExcel/Writer/Excel2007.php on line 227
