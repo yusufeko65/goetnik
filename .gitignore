@@ -1,0 +1,17 @@
+assets/image/_detail/*.*
+assets/image/_imagetopup/*.*
+assets/image/_middle/*.*
+assets/image/_other/*.*
+assets/image/_small/*.*
+assets/image/_thumb/*.*
+assets/image/_zoom/*.*
+assets/image/lain/*.*
+
+_includes
+controletnik_old
+controller_old
+model_old
+view_old
+
+auotoloder_old.php
+index_old.php
