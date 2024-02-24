@@ -83,8 +83,8 @@ class controllerShipping {
 					$kode_ship = strtoupper($datagrab['rajaongkir']['results'][$i]['code']);
 					
 					$dataship[] = array("shipping_code_rajaongkir"=>$kode_ship,
-										"shipping_code"=>$kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"],
-										"servis_id"=>$kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"],
+										"shipping_code"=>$kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"] ?? '',
+										"servis_id"=>$kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"] ?? '',
 										"servis_code"=>$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service'],
 										"tarif"=>$datagrab['rajaongkir']['results'][$i]['costs'][$x]['cost'][0]['value'],
 										"etd"=>$datagrab['rajaongkir']['results'][$i]['costs'][$x]['cost'][0]['etd'],
@@ -225,9 +225,10 @@ class controllerShipping {
 			$tarif = '';
 			$nilaitarif = 0;
 			$nilaitotal = 0;
+			$kodeunik = 0;
 			$total = '';
 		}
-		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"nilaitotal"=>$nilaitotal,"wil"=>$wil,"resi"=>$resi));
+		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"kodeunik"=>$kodeunik,"nilaitotal"=>$nilaitotal,"wil"=>$wil,"resi"=>$resi));
 	}
 	
 	function datashippingByID($id){

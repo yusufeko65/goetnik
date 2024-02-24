@@ -22,7 +22,7 @@
 
 				<input type="hidden" name="stsshipping" id="stsshipping" value="<?php echo $dataset['config_shippingstatus'] ?>">
 
-				<input type="hidden" name="stsdone" id="stsdone" value="<?php echo $dataset['config_donestatus'] ?>"> <!-- aar 22-06-2020 -->
+				<input type="hidden" name="stsdone" id="stsdone" value="<?= ($dataset['config_donestatus'] ?? '') ?>"> <!-- aar 22-06-2020 -->
 
 				<input type="hidden" name="stskonfirm" id="stskonfirm" value="<?php echo $dataset['config_konfirmstatus'] ?>">
 

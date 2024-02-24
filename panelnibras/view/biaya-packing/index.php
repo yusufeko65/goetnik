@@ -17,7 +17,7 @@ if (!$cekToken) {
 }
 include path_toincludes . "paging.php";
 
-$dtFungsi->cekHak('biaya-packing', '', 0);
+$dtFungsi->cekHak('biaya-packing', '', 1);
 
 
 $dtSetting = new controllerSetting();
@@ -38,13 +38,13 @@ $b = 1;
 switch ($menupage) {
   case "view":
   default:
-  $dtFungsi->cekHak("biaya-packing","view",0);
+  $dtFungsi->cekHak("biaya-packing","view",1);
     // $input = isset($_POST['order_id']) && isset($_POST['submit']) ? $_POST['order_id'] : '';
     // if ($input != '') {
     //   $result = $dtPengiriman->editdata($input);
     // }
     $biaya_packing_value = isset($_POST['biaya_packing']) ? $_POST['biaya_packing'] : '';
-    $setting_key =  $_POST['setting_key'] ? $_POST['setting_key'] : '';
+    $setting_key =  $_POST['setting_key'] ?? '';
     $status = '';
     if($biaya_packing_value != ''){
         $result = $dtSetting->setSettingByKey($setting_key, $biaya_packing_value);
