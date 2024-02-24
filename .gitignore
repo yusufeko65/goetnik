@@ -13,5 +13,7 @@ controller_old
 model_old
 view_old
 
-auotoloder_old.php
+autoloader_old.php
 index_old.php
+.htaccess
+panelnibras/.htaccess
