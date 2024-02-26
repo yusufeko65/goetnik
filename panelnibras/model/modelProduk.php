@@ -13,6 +13,14 @@ class modelProduk
 		$this->sessionuser = isset($_SESSION['userlogin']) ? $_SESSION['userlogin'] : '';
 	}
 
+	function getDataProduk($kode_produk)
+	{
+		$check = $this->db->query("select idproduk from _produk where kode_produk='$kode_produk'");
+		$jml = $check->num_rows;
+		if ($jml > 0) return $check->row['idproduk'];
+		else return false;
+	}
+
 	function checkDataProduk($kode_produk)
 	{
 		$check = $this->db->query("select kode_produk from _produk where kode_produk='$kode_produk'");

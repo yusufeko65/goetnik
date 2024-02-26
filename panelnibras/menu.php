@@ -67,6 +67,8 @@
         </li>
         <li><a href='<?php echo URL_PROGRAM_ADMIN . "order/?u_token=" . $_SESSION["u_token"] ?>' id="mnorder"><span
                     class="glyphicon glyphicon-shopping-cart"></span> Order </a></li>
+        <li><a href='<?php echo URL_PROGRAM_ADMIN . "order-packing/?u_token=" . $_SESSION["u_token"] ?>'
+                id="mnorder"><span class="glyphicon glyphicon-th-large"></span> Order Packing </a></li>
         <li class="dropdown"><a href='javascript:void(0)' id="mnorder" class="dropdown-toggle"
                 data-toggle="dropdown"><span class="glyphicon glyphicon-send"></span> Pengiriman <b
                     class="caret"></b></a>

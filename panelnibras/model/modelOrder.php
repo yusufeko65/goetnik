@@ -153,6 +153,45 @@ class modelOrder
 		return $sql;
 	}
 
+	function getOrderDetailbyProduk($noorder, $idproduk)
+
+	{
+
+		$data = 0;
+
+		$sql = "SELECT iddetail, jml, jml_packing, status_packing FROM _order_detail WHERE pesanan_no='" . $noorder . "' AND produk_id='" . $idproduk . "' ";
+
+		$strsql = $this->db->query($sql);
+
+		return $strsql->row;
+	}
+
+	function updateScanOrderDetail($noorder, $idproduk)
+
+	{
+
+		$data = $this->getOrderDetailbyProduk($noorder,$idproduk);
+		if(isset($data['iddetail'])){
+			$iddetail = $data['iddetail'];
+			$jml = $data['jml'];
+			$jml_p = $data['jml_packing'];
+			$sts_p = $data['status_packing'];
+
+			if($jml_p < $jml){
+				$jml_p += 1;
+				$sts = $jml_p == $jml ? 1 : 0;
+
+				$sql = $this->db->query("update _order_detail set jml_packing='" . $jml_p . "', status_packing='" . $sts . "' WHERE iddetail='" . $iddetail . "'");
+				return 1;
+			}else{
+				return 2;
+			}
+
+		}
+
+		return 0;
+	}
+
 	function editSubtotalOrder($hrg, $nopesan)
 
 	{
@@ -443,6 +482,8 @@ class modelOrder
 
 				_produk_deskripsi.nama_produk,
 
+				_produk.kode_produk,
+
 				_order_detail.jml,
 
 				_order_detail.harga,
@@ -459,7 +500,11 @@ class modelOrder
 
 				_order_detail.harga_tambahan,
 
-				_order_detail.get_poin
+				_order_detail.get_poin,
+
+				_order_detail.jml_packing,
+
+				_order_detail.status_packing
 
 				FROM _order_detail 
 
@@ -1744,7 +1789,7 @@ class modelOrder
 
 								   '" . $option['idwarna'] . "','" . $option['idukuran'] . "',
 
-								   '" . $option['get_poin'] . "','" . $option['harga_tambahan'] . "')";
+								   '" . $option['get_poin'] . "','" . $option['harga_tambahan'] . "',0,0)";
 
 					$strsql = $this->db->query($insertorder);
 

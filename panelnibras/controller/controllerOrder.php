@@ -1814,6 +1814,61 @@ class controllerOrder
 		return $result;
 	}
 
+	public function scanProdukPacking($noorder,$idproduk,$kodeproduk)
+	{
+		$produk	= $this->model->updateScanOrderDetail($noorder,$idproduk);
+
+		$html = '';
+		if ($produk == 1) {
+			$ambildata = $this->dataOrderDetail($noorder);
+			$b = 1;
+
+			ob_start();
+			foreach ($ambildata as $datanya) {
+
+				if($datanya["status_packing"]){
+					$color = '#3c763d';
+					$icon = 'glyphicon glyphicon-ok';
+				}else{
+					$color = '#a94442';
+					$icon = 'glyphicon glyphicon-remove';
+				}
+
+				$status = '<span class="'.$icon.'" style="color:'.$color.'"></span>';
+				
+				?>
+					<tr>
+						<td><?php echo $b++ ?></td>
+						<td><?php echo $datanya["nama_produk"] ?></td>
+						<td><?php echo $datanya["kode_produk"] ?></td>
+						<td><?php echo $datanya["berat"] ?> gr</td>
+						<td><?php echo $datanya["jml"] ?></td>
+						<td><?php echo $datanya["jml_packing"] ?></td>
+						<td style="text-align:center;"><?php echo $status ?></td>
+					</tr>
+				<?php
+			}
+			$html = ob_get_clean();
+			
+			$msg = $kodeproduk . ' :: sukses';;
+			$status = 'success';
+		} else if($produk == 0){
+			$status = 'error';
+			$msg = $kodeproduk . ' :: tidak termasuk orderan';
+		} else if($produk == 2){
+			$status = 'error';
+			$msg = $kodeproduk . ' :: jumlah melebihi orderan';
+		}
+
+		$data = [
+			'status'	=> $status,
+			'msg'		=> $msg,
+			'data'		=> $html
+		];
+
+		echo json_encode($data);
+	}
+
 	public function dataOrderByID($noorder)
 	{
 		return $this->model->getOrderByID($noorder);
