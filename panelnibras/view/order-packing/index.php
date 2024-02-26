@@ -40,8 +40,8 @@ $b = 1;
 switch ($menupage) {
   case "scanproduk":
     // Check kode scan
-    $kodescan = $_GET['scan'] ?? '';
-    $noorder = $_GET['pesanan'] ?? '';
+    $kodescan = isset($_GET['scan']) ? $_GET['scan'] : '';
+    $noorder = isset($_GET['pesanan']) ? $_GET['pesanan'] : '';
 
     $sts = $mdlProduk->getDataProduk($kodescan);
     if($sts){
@@ -56,7 +56,6 @@ switch ($menupage) {
 		echo json_encode($data);
     }
 
-    exit;
     break;
   case "view":
   default:

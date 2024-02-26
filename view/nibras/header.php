@@ -214,7 +214,7 @@
 
 									</li>
 								<?php    } else { ?>
-									<li><a class="nav-link" href="<?php echo URL_PROGRAM . $kat['alias'] ?>"><?= ($kat['nama'] ?? '') ?></a></li>
+									<li><a class="nav-link" href="<?php echo URL_PROGRAM . $kat['alias'] ?>"><?= (isset($kat['nama']) ? $kat['nama'] : '') ?></a></li>
 								<?php    } ?>
 							<?php } ?>
 						<?php } ?>
