@@ -46,6 +46,9 @@
 				<td>No</td>
 				<td>Produk</td>
 				<td>Kode Produk</td>
+				<td>Warna</td>
+				<td>Ukuran</td>
+				<td>Barcode</td>
 				<td>Berat</td>
 				<td>Jumlah Order</td>
 				<td>Jumlah Packing</td>
@@ -64,12 +67,19 @@
 				}
 
 				$status = '<span class="'.$icon.'" style="color:'.$color.'"></span>';
+
+				// Get Barcode
+				$option = $mdlProduk->getOption($datanya['produk_id'],$datanya['warnaid'],$datanya['ukuranid']);
+				$barcode = isset($option['barcode']) ? $option['barcode'] : '-';
 			?>
 			
 				<tr>
 					<td><?php echo $b++ ?></td>
 					<td><?php echo $datanya["nama_produk"] ?></td>
 					<td><?php echo $datanya["kode_produk"] ?></td>
+					<td><?php echo $datanya["warna"] ?></td>
+					<td><?php echo $datanya["ukuran"] ?></td>
+					<td><?php echo $barcode ?></td>
 					<td><?php echo $datanya["berat"] ?> gr</td>
 					<td><?php echo $datanya["jml"] ?></td>
 					<td><?php echo $datanya["jml_packing"] ?></td>

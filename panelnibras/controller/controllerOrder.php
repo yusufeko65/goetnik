@@ -1814,9 +1814,9 @@ class controllerOrder
 		return $result;
 	}
 
-	public function scanProdukPacking($noorder,$idproduk,$kodeproduk)
+	public function scanProdukPacking($noorder,$barcode,$idproduk,$warna,$ukuran)
 	{
-		$produk	= $this->model->updateScanOrderDetail($noorder,$idproduk);
+		$produk	= $this->model->updateScanOrderDetail($noorder,$idproduk,$warna,$ukuran);
 
 		$html = '';
 		if ($produk == 1) {
@@ -1835,12 +1835,19 @@ class controllerOrder
 				}
 
 				$status = '<span class="'.$icon.'" style="color:'.$color.'"></span>';
+
+				// Get Barcode
+				$option = $this->dataProduk->getOption($datanya['produk_id'],$datanya['warnaid'],$datanya['ukuranid']);
+				$brcode = isset($option['barcode']) ? $option['barcode'] : '-';
 				
 				?>
 					<tr>
 						<td><?php echo $b++ ?></td>
 						<td><?php echo $datanya["nama_produk"] ?></td>
 						<td><?php echo $datanya["kode_produk"] ?></td>
+						<td><?php echo $datanya["warna"] ?></td>
+						<td><?php echo $datanya["ukuran"] ?></td>
+						<td><?php echo $brcode ?></td>
 						<td><?php echo $datanya["berat"] ?> gr</td>
 						<td><?php echo $datanya["jml"] ?></td>
 						<td><?php echo $datanya["jml_packing"] ?></td>
@@ -1850,14 +1857,14 @@ class controllerOrder
 			}
 			$html = ob_get_clean();
 			
-			$msg = $kodeproduk . ' :: sukses';;
+			$msg = $barcode . ' :: sukses';;
 			$status = 'success';
 		} else if($produk == 0){
 			$status = 'error';
-			$msg = $kodeproduk . ' :: tidak termasuk orderan';
+			$msg = $barcode . ' :: tidak termasuk orderan';
 		} else if($produk == 2){
 			$status = 'error';
-			$msg = $kodeproduk . ' :: jumlah melebihi orderan';
+			$msg = $barcode . ' :: jumlah melebihi orderan';
 		}
 
 		$data = [

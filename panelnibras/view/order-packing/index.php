@@ -43,17 +43,27 @@ switch ($menupage) {
     $kodescan = isset($_GET['scan']) ? $_GET['scan'] : '';
     $noorder = isset($_GET['pesanan']) ? $_GET['pesanan'] : '';
 
-    $sts = $mdlProduk->getDataProduk($kodescan);
-    if($sts){
-        $data = $dtOrder->scanProdukPacking($noorder,$sts,$kodescan);
-    }else{
-        $data = [
-			'status'	=> 'error',
-			'msg'		=> 'Kode Produk tidak ditemukan',
-			'data'		=> ''
-		];
+    $error = true;
+    if(!empty($kodescan)){
+        $sts = $mdlProduk->getProdukbyBarcode($kodescan);
+        if(isset($sts['idproduk'])){
+          $error = false;
+          $idproduk = $sts['idproduk'];
+          $warna = $sts['warna'];
+          $ukuran = $sts['ukuran'];
 
-		echo json_encode($data);
+          $data = $dtOrder->scanProdukPacking($noorder,$kodescan,$idproduk,$warna,$ukuran);
+        }
+    }
+    
+    if($error){
+        $data = [
+          'status'	=> 'error',
+          'msg'		  => 'Barcode tidak ditemukan',
+          'data'		=> ''
+		    ];
+
+		    echo json_encode($data);
     }
 
     break;

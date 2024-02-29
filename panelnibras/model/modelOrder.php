@@ -166,11 +166,24 @@ class modelOrder
 		return $strsql->row;
 	}
 
-	function updateScanOrderDetail($noorder, $idproduk)
+	function getOrderDetailbyOption($noorder, $idproduk,$warna,$ukuran)
 
 	{
 
-		$data = $this->getOrderDetailbyProduk($noorder,$idproduk);
+		$data = 0;
+
+		$sql = "SELECT iddetail, jml, jml_packing, status_packing FROM _order_detail WHERE pesanan_no='" . $noorder . "' AND produk_id='" . $idproduk . "' AND warnaid='" . $warna . "' AND ukuranid='" . $ukuran . "'";
+
+		$strsql = $this->db->query($sql);
+
+		return $strsql->row;
+	}
+
+	function updateScanOrderDetail($noorder, $idproduk,$warna,$ukuran)
+
+	{
+
+		$data = $this->getOrderDetailbyOption($noorder,$idproduk,$warna,$ukuran);
 		if(isset($data['iddetail'])){
 			$iddetail = $data['iddetail'];
 			$jml = $data['jml'];

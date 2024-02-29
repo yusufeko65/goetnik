@@ -21,6 +21,14 @@ class modelProduk
 		else return false;
 	}
 
+	function getProdukbyBarcode($barcode)
+	{
+		$check = $this->db->query("select idproduk,ukuran,warna from _produk_options where barcode='$barcode'");
+		$jml = $check->num_rows;
+		if ($jml > 0) return $check->row;
+		else return [];
+	}
+
 	function checkDataProduk($kode_produk)
 	{
 		$check = $this->db->query("select kode_produk from _produk where kode_produk='$kode_produk'");
