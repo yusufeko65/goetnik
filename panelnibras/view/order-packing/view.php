@@ -1,7 +1,7 @@
 <div id="hasil"></div>
 <div class="col-lg-12 main-content">
 	<h2 class="judulmodul"><?php echo $judul ?></h2>
-	<div><?php echo ($result["cek"] ?? '') ?></div>
+	<div><?php echo (isset($result["cek"]) ? $result["cek"] : '') ?></div>
 	<?php if (!is_null($result)): ?>
 		<?php if ($result["status"] == 'success'): ?>
 			<div id="hasil" class="alert alert-success"><?php echo $result["message"] ?></div>

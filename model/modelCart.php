@@ -503,7 +503,7 @@ class model_Cart
 
 				(null,'" . $data['nopesanan'] . "','" . $data['cust_id'] . "',
 
-				 '" . $data['totjumlah'] . "','" . $data['subtotal'] . "',
+				 '" . $data['totjumlah'] . "','" . $data['kodeunik'] . "','" . $data['subtotal'] . "',
 
 				 '" . $data['tarifkurir'] . "','" . $tgltransaksi . "','0',
 
@@ -517,7 +517,7 @@ class model_Cart
 
 				 '" . $data['nomor_awb'] . "','" . $data['potdeposito'] . "','" . $data['dropship'] . "',
 
-				'" . $data['kurir_konfirm'] . "',0,'" . htmlspecialchars(htmlentities($this->db->escape($data['keterangan']))) . "','0')"; 
+				'" . $data['kurir_konfirm'] . "',0,'" . htmlspecialchars(htmlentities($this->db->escape($data['keterangan']))) . "','0','0')"; 
 
 
 
@@ -569,7 +569,7 @@ class model_Cart
 
 									  '" . $orderdetail['get_poin'] . "',
 
-									  '" . $orderdetail['hrgtambahan'] . "')";
+									  '" . $orderdetail['hrgtambahan'] . "',0,0)";
 			}
 
 			if (count($valueorderdetail) > 0) {

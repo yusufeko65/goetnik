@@ -176,6 +176,7 @@ switch($modul){
 				if($kabupaten_penerima != '' && $kabupaten_penerima != '0') {
 					$optkecamatan = $dtFungsi->cetakcombobox3('- Kecamatan -','0',$kecamatan_penerima,'kecamatan_penerima','_kecamatan','kecamatan_id','kecamatan_nama','kabupaten_id='.$kabupaten_penerima);
 				}
+
 				$file='/kasir.php';
 				
 			} else {

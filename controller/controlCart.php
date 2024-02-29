@@ -714,8 +714,10 @@ class controller_Cart
 				
 				// Status Bayar
 				$data['status_order'] = $datastatus['config_sudahbayarstatus'];
+				$data['kodeunik'] = 0;
 			} else {
 				$data['status_order'] = $datastatus['config_orderstatus'];
+				$data['kodeunik'] = rand(50,400);
 			}
 			$simpan = $this->dataModel->simpanorder($data);
 
@@ -786,13 +788,22 @@ class controller_Cart
 					$tabel .= '</tr>';
 				}
 
+				/* poin jika ada */
+				if ($data['kodeunik'] > 0) {
+					$tabel .= '<tr style=\"margin:0;padding:0\">';
+					$tabel .= '<td colspan="5"></td>';
+					$tabel .= '<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Kode Unik : </b> </td>';
+					$tabel .= '<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\">' . $this->Fungsi->fFormatuang((int) $data['kodeunik']) . '</td>';
+					$tabel .= '</tr>';
+				}
+
 				/* total */
 				$tabel	.= '<tr>';
 				$tabel .= "<td colspan=\"6\" style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Total Yang Harus di Transfer</b></td>";
 				if ($captiontarif == 'Konfirmasi Admin') {
 					$grandtotal = $captiontarif;
 				} else {
-					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['poin'] - $data['potdeposito']);
+					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['poin'] - $data['potdeposito'] - $data['kodeunik']);
 				}
 				$tabel 	.= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $grandtotal . "</b></td>";
 				$tabel	.= '</tr>';
