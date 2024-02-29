@@ -540,7 +540,7 @@ class modelProduk
 	{
 		$data = array();
 
-		$sql = "SELECT po.stok,po.ukuran as idukuran,u.ukuran,po.warna as idwarna,w.warna,po.tambahan_harga 
+		$sql = "SELECT po.idopt,po.stok,po.ukuran as idukuran,u.ukuran,po.warna as idwarna,w.warna,po.tambahan_harga,po.barcode 
 				FROM _produk_options po 
 				LEFT JOIN _ukuran u ON po.ukuran = u.idukuran
 				LEFT JOIN _warna w ON po.warna = w.idwarna
@@ -669,6 +669,20 @@ class modelProduk
 								  where head_idproduk='" . $iddata . "'");
 
 		return isset($strsql->row) ? $strsql->row : false;
+	}
+	function getProdukAll(){
+		$sql = "SELECT _produk.idproduk,_produk.kode_produk,_produk.status_produk,_produk_deskripsi.nama_produk,_produk.jml_stok,_produk.gbr_produk,_produk.hrg_jual 
+				FROM _produk 
+				INNER JOIN _produk_deskripsi ON _produk.idproduk = _produk_deskripsi.idproduk 
+				LEFT JOIN _produk_kategori ON _produk.idproduk = _produk_kategori.idproduk
+				WHERE 1=1
+				group by _produk.idproduk ORDER BY _produk.idproduk desc";
+
+		$strsql = $this->db->query($sql);
+		foreach ($strsql->rows as $rsa) {
+			$hasil[] = $rsa;
+		}
+		return $hasil;
 	}
 	function getProdukLimit($batas, $baris, $data)
 	{

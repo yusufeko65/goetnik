@@ -29,7 +29,11 @@
 		   </form>
 		 </div>
 	   </div>
-	   <div class="col-md-4 bagian-tombol"><a href="<?php echo URL_PROGRAM_ADMIN.folder."/?op=add"?>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Tambah</a> <a class="btn btn-warning btn-sm" onclick="hapusdata()"><span class="glyphicon glyphicon-trash"></span> Hapus</a></div>
+	   	<div class="col-md-4 bagian-tombol">
+			<a href="<?php echo URL_PROGRAM_ADMIN.folder."/?op=add"?>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Tambah</a> 
+			<a class="btn btn-warning btn-sm" onclick="hapusdata()"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+			<a class="btn btn-sm btn-default" id="tblexport" target="_blank" href="<?php echo URL_PROGRAM_ADMIN."view/".folder?>/exportexcel.php">Export</a>
+		</div>
     </div>
 	
 	<table class="table table-bordered table-striped table-hover tabel-grid">

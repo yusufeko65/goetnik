@@ -730,6 +730,9 @@ class controllerProduk
 		return $result;
 	}
 
+	public function getProdukExport(){
+		return $this->model->getProdukAll();
+	}
 
 	public function hapusdata()
 	{
