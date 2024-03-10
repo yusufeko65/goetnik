@@ -63,6 +63,9 @@ switch($aksipage){
 		echo $dtProduk->hapusdiskon();
 		exit;
    break;
+   case "import":
+		$dtProduk->importData();
+	break;
 }
 
 $stsload = isset($_REQUEST['stsload']) ? $_REQUEST['stsload']:'';

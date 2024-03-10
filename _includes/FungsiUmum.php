@@ -4,6 +4,24 @@ class FungsiUmum {
 		$this->db 		= new Database();
 		$this->db->connect();
 	}
+
+	public function _detectDelimiter($csvFile){
+		$delimiters = array(
+			';' => 0,
+			',' => 0,
+			"\t" => 0,
+			"|" => 0
+		);
+	
+		$handle = fopen($csvFile, "r");
+		$firstLine = fgets($handle);
+		fclose($handle);
+		foreach ($delimiters as $delimiter => &$count) {
+			$count = count(str_getcsv($firstLine, $delimiter));
+		}
+	
+		return array_search(max($delimiters), $delimiters);
+	}
    
 	public function pesandata($pesan,$modulnya){
 	   if($pesan!="") $pesan='gagal|'.$modulnya.'|'.DATA_SIMPAN_GAGAL.$pesan;

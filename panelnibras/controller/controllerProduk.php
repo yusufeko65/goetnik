@@ -154,6 +154,49 @@ class controllerProduk
 		echo json_encode(array("status" => $status, "result" => $pesan, "produk_id" => $this->data['idproduk']));
 	}
 
+	public function importData(){
+		$stsimport = false;
+		if(!isset($_FILES["filename"])){
+			return $stsimport;
+		}
+
+		$fileName = $_FILES["filename"]["tmp_name"];
+
+		if ($_FILES["filename"]["size"] > 0) {
+			$delimiter = $this->Fungsi->_detectDelimiter($fileName);
+			$file = fopen($fileName, "r");
+			
+			$no = 0;
+			$status = true;$_colm = array();$files = array();
+			while (($column = fgetcsv($file, 10000, $delimiter)) !== FALSE) {
+				if($no<=1){
+					$no+=1;
+					continue;
+				}
+				foreach ($column as $key => $val) {
+					if($status){
+						$_colm[$key] = strtolower($val);
+					}else{
+						$files[$_colm[$key]] = $val;
+					}
+				}
+
+				if(!$status){
+					if(!empty($files['id option'])){
+						$stsimport = $this->model->setBarcodeDetailProduk($files['id option'],$files['barcode']);
+						if(!$stsimport){
+							break;
+						}
+					}
+				}
+
+				$status = false;
+			}
+		}
+
+		return $stsimport;
+	}
+
 	public function simpanheadproduk($aksi)
 	{
 		$hasil = '';
@@ -571,7 +614,7 @@ class controllerProduk
 		$data = [];
 
 		foreach ($_POST as $key => $value) {
-			if ($key == 'actiondata' || $key == 'stok_option' || $key == 'idproduk' || $key == 'idukuran' || $key == 'idwarna' || $key == 'tambahan_harga') {
+			if ($key == 'actiondata' || $key == 'stok_option' || $key == 'idproduk' || $key == 'idukuran' || $key == 'idwarna' || $key == 'tambahan_harga' || $key == 'barcode') {
 				$data["{$key}"] = $value;
 			}
 		}

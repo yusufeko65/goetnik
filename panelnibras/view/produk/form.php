@@ -294,6 +294,13 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Barcode</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="barcode" id="barcode" class="form-control input-sm" value="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Stok</label>
                                         <div class="col-sm-1">
                                             <input type="text" name="stok_option" id="stok_option" class="form-control input-sm" value="0">
@@ -320,6 +327,7 @@
                                             <tr>
                                                 <th class="text-center">Ukuran</th>
                                                 <th class="text-center">Warna</th>
+                                                <th class="text-center">Barcode</th>
                                                 <th class="text-center">Stok</th>
                                                 <th class="text-center">Tambahan Harga</th>
                                                 <th class="text-center">Harga</th>
@@ -333,6 +341,7 @@
                                                     <tr id="option_row<?php echo $option_row ?>">
                                                         <td><?php echo $stokoption['ukuran'] ?></td>
                                                         <td><?php echo $stokoption['warna'] ?></td>
+                                                        <td><?php echo $stokoption['barcode'] ?></td>
                                                         <td class="text-center"><a href="javascript:void(0)" onclick="formmodaleditstok(<?php echo $option_row ?>,<?php echo $idproduk ?>,<?php echo $stokoption['idukuran'] ?>,<?php echo $stokoption['idwarna'] ?>,'<?php echo $stokoption['ukuran'] ?>','<?php echo $stokoption['warna'] ?>')" id="stok<?php echo $option_row ?>"><?php echo $stokoption['stok'] ?></a></td>
                                                         <td class="text-right"><?php echo $stokoption['tambahan_harga'] ?></td>
                                                         <td class="text-right"><?php echo $stokoption['tambahan_harga'] + $harga_satuan ?></td>
@@ -853,9 +862,10 @@
         var idukuran = $('#id_ukuran').val();
 		var nama_ukuran = $('#id_ukuran option:selected' ).text();
         var tambahan_harga = $('#tambahan_harga').val();
+        var barcode = $('#barcode').val();
         var stok_option = parseInt($('#stok_option').val());
         var allstok = parseInt($('#jml_stok').val());
-        var datastok = "actiondata=savestokoption&idproduk=" + idproduk + '&idwarna=' + idwarna + '&idukuran=' + idukuran + '&stok_option=' + stok_option + '&tambahan_harga=' + tambahan_harga;
+        var datastok = "actiondata=savestokoption&idproduk=" + idproduk + '&idwarna=' + idwarna + '&idukuran=' + idukuran + '&stok_option=' + stok_option + '&tambahan_harga=' + tambahan_harga + '&barcode=' + barcode;
 
         if (stok_option == 0) {
             alert('Masukkan Jumlah Stok');
@@ -885,6 +895,7 @@
                         html += '<tr id="option_row' + option_row + '">';
                         html += '<td >' + datastok[i]['ukuran'] + '</td>';
                         html += '<td>' + datastok[i]['warna'] + '</td>';
+                        html += '<td>' + datastok[i]['barcode'] + '</td>';
                         html += '<td class="text-center"><a href="javascript:void(0)" onclick="formmodaleditstok(' + option_row + ',' + idproduk + ',' + datastok[i]['idukuran'] + ',' + datastok[i]['idwarna'] + ',\'' + datastok[i]['ukuran'] +'\',\''+datastok[i]['warna']+'\')">' + datastok[i]['stok'] + '</a></td>';
                         html += '<td class="text-right">' + datastok[i]['tambahan_harga'] + '</td>';
                         html += '<td class="text-right">' + hargaoption + '</td>';

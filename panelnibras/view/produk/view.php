@@ -2,6 +2,20 @@
 <div class="col-lg-12 main-content">
    <h2 class="judulmodul"><?php echo $judul ?></h2>
    <div class="row">
+		<div class="col-md-4" style="background-color: #79d2ff;padding:5px 12px;border:1px solid #ccc;border-radius:5px;margin-left: 14px;margin-bottom: 10px;">
+			<form role="form-inline" method="POST" id="frmimport" name="frmimport" action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
+				<div class="col-md-9">
+					<input type="hidden" name="aksi" value="import">
+					<input type="file" id="myFile" name="filename">
+				</div>
+				<div class="col-md-3">
+					<input type="submit" value="import">
+				</div>
+			</form>
+	   </div>
+	   <div class="col-md-7">
+		<div>&nbsp;</div>
+		</div>
 	  <div class="col-md-8 bagian-frm-cari ">
 		<div class="row">
 		   <form role="form-inline" id="frmcari" name="frmcari" action="<?php echo $_SERVER['PHP_SELF'] ?>">

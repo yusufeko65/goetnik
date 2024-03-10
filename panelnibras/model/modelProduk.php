@@ -29,6 +29,20 @@ class modelProduk
 		else return [];
 	}
 
+	function setBarcodeDetailProduk($idoption,$barcode){
+		$sqls = $this->db->query("UPDATE _produk_options	SET
+							  barcode='$barcode'
+							  WHERE idopt='$idoption'");
+
+		if ($sqls) {
+			$status = true;
+		} else {
+			$status = false;
+		}
+
+		return $status;
+	}
+
 	function checkDataProduk($kode_produk)
 	{
 		$check = $this->db->query("select kode_produk from _produk where kode_produk='$kode_produk'");
@@ -480,7 +494,7 @@ class modelProduk
 								 WHERE idproduk = '".$data['idproduk']."' AND warna='".$data['idwarna']."' AND ukuran = '".$data['idukuran']."'");
 		*/
 		//if(!$this->db->affected_rows()) {
-		$sql2 = $this->db->query("INSERT INTO _produk_options values (null,'" . $data['idproduk'] . "','" . $data['stok_option'] . "','" . $data['idukuran'] . "','" . $data['idwarna'] . "','" . $data['tambahan_harga'] . "')");
+		$sql2 = $this->db->query("INSERT INTO _produk_options values (null,'" . $data['idproduk'] . "','" . $data['stok_option'] . "','" . $data['idukuran'] . "','" . $data['idwarna'] . "','" . $data['tambahan_harga'] . "','" . $data['barcode'] . "')");
 		if (!$sql2) {
 			$error[] = "Error di table produk options";
 		}
