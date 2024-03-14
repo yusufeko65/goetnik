@@ -281,6 +281,8 @@ class modelOrder
 
 				pesanan_subtotal as subtotal,
 
+				kode_unik,
+
 				pesanan_tgl as tgl,
 
 				status_nama as status,_order.status_id,
@@ -367,7 +369,7 @@ class modelOrder
 
 		$sql = "select o.pesanan_no,o.pelanggan_id,c.cust_nama,cg.cg_nm as grup_cust,cg.cg_deposito,
 
-				o.pesanan_jml,o.pesanan_subtotal,o.pesanan_kurir,o.kurir_perkilo,o.pesanan_tgl,
+				o.pesanan_jml,o.pesanan_subtotal,o.kode_unik,o.pesanan_kurir,o.kurir_perkilo,o.pesanan_tgl,
 
 				o.status_id,so.status_nama,o.kurir,sp.shipping_nama,
 
@@ -1714,6 +1716,8 @@ class modelOrder
 
 				set pesanan_jml='" . $data['totjumlah'] . "',
 
+				kode_unik='" . $data['kodeunik'] . "',
+				
 				pesanan_subtotal='" . $data['subtotal'] . "',
 
 				pesanan_kurir='" . $data['tarifkurir'] . "',
@@ -2086,6 +2090,8 @@ class modelOrder
 		$sql = "update _order 
 
 				set pesanan_jml='" . $data['totjumlah'] . "',
+
+				kode_unik='" . $data['kodeunik'] . "',
 
 				pesanan_subtotal='" . $data['subtotal'] . "',
 
@@ -2684,6 +2690,8 @@ class modelOrder
 
 					pesanan_jml='" . $data['totjumlah'] . "',
 
+					kode_unik='" . $data['kodeunik'] . "',
+
 					pesanan_subtotal='" . $data['subtotal'] . "',
 
 					pesanan_kurir='" . $data['tarifkurir'] . "',
@@ -2848,7 +2856,7 @@ class modelOrder
 
 				(null,'" . $data['nopesanan'] . "','" . $data['cust_id'] . "',
 
-				 '" . $data['totjumlah'] . "','" . $data['subtotal'] . "',
+				 '" . $data['totjumlah'] . "','" . $data['kodeunik'] . "','" . $data['subtotal'] . "',
 
 				 '" . $data['tarifkurir'] . "','" . $data['tgltransaksi'] . "','0',
 
@@ -2862,7 +2870,7 @@ class modelOrder
 
 				 '" . $data['nomor_awb'] . "','" . $data['potdeposito'] . "','" . $data['dropship'] . "',
 
-				 '" . $data['kurir_konfirm'] . "','" . $this->user . "','".$resi."','0')";
+				 '" . $data['kurir_konfirm'] . "','" . $this->user . "','".$resi."','0','0')";
 
 
 
@@ -2914,7 +2922,11 @@ class modelOrder
 
 									  '" . $orderdetail['get_poin'] . "',
 
-									  '" . $orderdetail['hrgtambahan'] . "')";
+									  '" . $orderdetail['hrgtambahan'] . "',
+									  
+									  '0',
+
+									  '0')";
 			}
 
 			if (count($valueorderdetail) > 0) {

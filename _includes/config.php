@@ -46,5 +46,8 @@ define('DIR_IMAGE', ROOT_DOC.URL_PROGRAM.'assets/image/');
 if(!defined('DIR_CONTROLLER')) define("DIR_CONTROLLER", ROOT_DOC.URL_PROGRAM.'controller/');
 if(!defined('DIR_MODEL')) define("DIR_MODEL", ROOT_DOC.URL_PROGRAM.'model/');
 
+// setting url api untuk kode unik
+define("URL_API_UNIQUE_CODE","http://localhost/api-bisadropship/unique/request/");
+
 session_start();
 ?>

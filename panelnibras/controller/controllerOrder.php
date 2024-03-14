@@ -114,6 +114,7 @@ class controllerOrder
 				$data['kurir_konfirm'] = '1';
 				$captiontarif = 'Konfirmasi Admin';
 				$data['tarifkurir'] = 0;
+				$data['kodeunik'] = 0;
 			} else {
 				$data['kurir_konfirm'] = '0';
 				$captiontarif = 'Rp. ' . $this->Fungsi->fuang($tarif);
@@ -258,13 +259,19 @@ class controllerOrder
 				$tabel .= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $captiontarif . "</b></td>";
 				$tabel .= '</tr>';
 
+				/* kodeunik */
+				$tabel	.= "<tr style=\"margin:0;padding:0\">";
+				$tabel .= "<td colspan=\"6\" style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Kode Unik</b> </td>";
+				$tabel .= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Rp. " . $this->Fungsi->fuang($data['kodeunik']) . "</b></td>";
+				$tabel .= '</tr>';
+
 				/* total */
 				$tabel	.= '<tr>';
 				$tabel .= "<td colspan=\"6\" style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Total</b></td>";
 				if ($captiontarif == 'Konfirmasi Admin') {
 					$grandtotal = $captiontarif;
 				} else {
-					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['poin'] - $data['potdeposito'] + ($data['biaya_packing'] ?? 0));
+					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['kodeunik'] - $data['poin'] - $data['potdeposito'] + ($data['biaya_packing'] ?? 0));
 				}
 				$tabel 	.= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $grandtotal . "</b></td>";
 				$tabel	.= '</tr>';
@@ -450,7 +457,15 @@ class controllerOrder
 					$data['totgetpoin'] = $totgetpoin;
 					$data['totberat'] 	= $totberat;
 
-
+					// Get kode unik
+					$url = URL_API_UNIQUE_CODE . $subtotal; // path to your JSON file
+					$response = file_get_contents($url); // put the contents of the file into a variable
+					$request = json_decode($response,true);
+	
+					$data['kodeunik'] = 0;
+					if($request['status']){
+						$data['kodeunik'] = $request['data'];
+					}
 
 					$data['kecamatan_penerima'] = $dataorder['kecamatan_penerima'];
 					$data['kabupaten_penerima'] = $dataorder['kota_penerima'];
@@ -900,6 +915,16 @@ class controllerOrder
 						$data['kabupaten_penerima'] = $dataorder['kota_penerima'];
 						$data['propinsi_penerima'] 	= $dataorder['propinsi_penerima'];
 						$data['serviskurir']		= $dataorder['servis_kurir'];
+
+						// Get kode unik
+						$url = URL_API_UNIQUE_CODE . $subtotal; // path to your JSON file
+						$response = file_get_contents($url); // put the contents of the file into a variable
+						$request = json_decode($response,true);
+		
+						$data['kodeunik'] = 0;
+						if($request['status']){
+							$data['kodeunik'] = $request['data'];
+						}
 
 						/*
 						$dataservis 			= $this->dataShipping->getServisByIdserv($data);
@@ -1645,6 +1670,16 @@ class controllerOrder
 						$data['totjumlah'] = $totjumlah;
 						$data['totgetpoin'] = $totgetpoin;
 						$data['totberat'] 	= $totberat;
+
+						// Get kode unik
+						$url = URL_API_UNIQUE_CODE . $subtotal; // path to your JSON file
+						$response = file_get_contents($url); // put the contents of the file into a variable
+						$request = json_decode($response,true);
+		
+						$data['kodeunik'] = 0;
+						if($request['status']){
+							$data['kodeunik'] = $request['data'];
+						}
 
 						$dataorder = $this->model->getOrderByID($data['nopesanan']);
 						$data['kecamatan_penerima'] = $dataorder['kecamatan_penerima'];

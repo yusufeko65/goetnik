@@ -717,7 +717,16 @@ class controller_Cart
 				$data['kodeunik'] = 0;
 			} else {
 				$data['status_order'] = $datastatus['config_orderstatus'];
-				$data['kodeunik'] = rand(50,400);
+				//$data['kodeunik'] = rand(50,400);
+				// change to API
+				$url = URL_API_UNIQUE_CODE . $data['totjumlah']; // path to your JSON file
+				$data = file_get_contents($url); // put the contents of the file into a variable
+				$request = json_decode($data,true);
+
+				$data['kodeunik'] = 0;
+				if($request['status']){
+					$data['kodeunik'] = $request['data'];
+				}
 			}
 			$simpan = $this->dataModel->simpanorder($data);
 

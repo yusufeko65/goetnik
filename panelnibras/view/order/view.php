@@ -77,7 +77,7 @@
 					<td><?php echo $datanya["cust_nama"] ?></td>
 					<td><?php echo $datanya["nama_penerima"] ?></td>
 					<td class="text-right"><?php echo $datanya["jml"] ?></td>
-					<td class="text-right"><?php echo $dtFungsi->fFormatuang($datanya["pesanan_kurir"] + $datanya["subtotal"] - $datanya['dari_poin']) ?></td>
+					<td class="text-right"><?php echo $dtFungsi->fFormatuang($datanya["pesanan_kurir"] + $datanya["subtotal"] - $datanya['dari_poin'] - $datanya['kode_unik']) ?></td>
 					<td class="text-center"><?php echo $dtFungsi->ftanggalFull1($datanya["tgl"]) ?></td>
 					<td><?php echo $datanya["status"] ?> <br>
 						<small>

@@ -49,5 +49,9 @@ if(!defined('DIR_CONTROLLER')) define("DIR_CONTROLLER", ROOT_DOC.URL_PROGRAM.'co
 if(!defined('DIR_MODEL')) define("DIR_MODEL", ROOT_DOC.URL_PROGRAM.'model/');
 //if (!is_dir(DIR_THEMES)) exit ('<div style="text-align:center;margin-top:200px"><br><b>Undercontruction!! </b><br>Maaf, untuk sementara website sedang dalam pengembangan</div>');
 //if(!file_exists(DIR_THEMES.'home/index.php')) exit("Tidak ditemukan");
+
+// setting url api untuk kode unik
+define("URL_API_UNIQUE_CODE","http://localhost/api-bisadropship/unique/request/");
+
 session_start();
 ?>

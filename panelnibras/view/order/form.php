@@ -610,7 +610,17 @@
 
 						</tr>
 
+						<tr>
 
+							<td colspan="6" class="text-right"><b>Kode Unik</b></td>
+
+							<td class="text-right">(<?php echo $dtFungsi->fFormatuang($order['kode_unik']) ?>)
+
+								<input type="hidden" id="kodeunik" value="<?php echo $order['kode_unik'] ?>">
+
+							</td>
+
+						</tr>
 
 						<tr>
 
@@ -622,7 +632,7 @@
 
 								<?php if ($order['pesanan_kurir'] < 0) $order['pesanan_kurir'] = 0 ?>
 
-								<?php $grandtotal = ((int) $order['pesanan_kurir'] + (int) $order['pesanan_subtotal']) - (int) $order['dari_poin'] - (int) $order['dari_deposito']; ?>
+								<?php $grandtotal = ((int) $order['pesanan_kurir'] + (int) $order['pesanan_subtotal']) - (int) $order['dari_poin'] - (int) $order['dari_deposito'] - (int) $order['kode_unik']; ?>
 
 								<input type="hidden" name="grandtotal" id="grandtotal" value="<?php echo $grandtotal ?>">
 

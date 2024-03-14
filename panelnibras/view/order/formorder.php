@@ -158,6 +158,13 @@
 													<div class="clearfix"></div>
 												</li>
 												<li class="list-group-item">
+													<div class="col-md-6">Kode Unik</div>
+													<div class="col-md-6 text-right" id="caption_kodeunik">-</div>
+													<div class="clearfix">
+														<input type="hidden" value="0" name="kodeunik" id="kodeunik">
+													</div>
+												</li>
+												<li class="list-group-item">
 													<div class="col-md-6">Total</div>
 													<div class="col-md-6 text-right" id="caption_total">-</div>
 													<div class="clearfix"></div>
@@ -498,11 +505,12 @@
 					} else {
 
 						tarifwil[datawil] = json['tarif'];
+						kodeunik = convertToRupiah(json['kodeunik']);
 						nilaitarifwil[datawil] = convertToRupiah(json['nilaitarif']);
 
 						tarif = json['tarif'];
 						if (tarif != 'Konfirmasi Admin') {
-							total = parseInt(json['nilaitarif']) + parseInt(subtotal);
+							total = parseInt(json['nilaitotal']);
 							total = convertToRupiah(total);
 						} else {
 							total = 'Konfirmasi Admin';
@@ -513,7 +521,10 @@
 							$('#noresi').prop('disabled',false);
 						}
 						totalwil[datawil] = total;
+						$('#kodeunik').val(json['kodeunik']);
+
 						$('#caption_kurir').html(tarif);
+						$('#caption_kodeunik').html(kodeunik);
 						$('#caption_total').html(total);
 
 					}
@@ -530,6 +541,7 @@
 			total = totalwil[datawil];
 
 			$('#caption_kurir').html(nilaitarif);
+			$('#caption_kodeunik').html(0);
 			$('#caption_total').html(total);
 
 		}
