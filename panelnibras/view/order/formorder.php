@@ -207,6 +207,7 @@
 	var tarifwil = [];
 	var nilaitarifwil = [];
 	var totalwil = [];
+	var kodeunikwil = [];
 	$(function() {
 		$('#pelanggan').val("");
 		$('#pelanggan').focus();
@@ -480,6 +481,7 @@
 		var serviskurir = $('#serviskurir').val();
 		var tarif;
 		var nilaitarif;
+		var kodeunik;
 		var datawil = $('#kecamatan_penerima').val() + ',' + serviskurir + ',' + totberat;
 		var cekwil = wil.indexOf(datawil);
 
@@ -505,8 +507,10 @@
 					} else {
 
 						tarifwil[datawil] = json['tarif'];
-						kodeunik = convertToRupiah(json['kodeunik']);
+						kodeunikwil[datawil] = json['kodeunik'];
 						nilaitarifwil[datawil] = convertToRupiah(json['nilaitarif']);
+
+						kodeunik = convertToRupiah(json['kodeunik']);
 
 						tarif = json['tarif'];
 						if (tarif != 'Konfirmasi Admin') {
@@ -539,9 +543,12 @@
 			tarif = tarifwil[datawil];
 			nilaitarif = nilaitarifwil[datawil];
 			total = totalwil[datawil];
+			kodeunik = convertToRupiah(kodeunikwil[datawil]);
+
+			$('#kodeunik').val(kodeunikwil[datawil]);
 
 			$('#caption_kurir').html(nilaitarif);
-			$('#caption_kodeunik').html(0);
+			$('#caption_kodeunik').html(kodeunik);
 			$('#caption_total').html(total);
 
 		}
