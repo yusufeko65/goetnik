@@ -44,7 +44,7 @@ switch ($menupage) {
     //   $result = $dtPengiriman->editdata($input);
     // }
     $biaya_packing_value = isset($_POST['biaya_packing']) ? $_POST['biaya_packing'] : '';
-    $setting_key =  $_POST['setting_key'] ?? '';
+    $setting_key =  isset($_POST['setting_key']) ? $_POST['setting_key'] : '';
     $status = '';
     if($biaya_packing_value != ''){
         $result = $dtSetting->setSettingByKey($setting_key, $biaya_packing_value);

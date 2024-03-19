@@ -15,7 +15,7 @@
                         <div class="form-group">
                                     <label class="col-md-3 control-label">Biaya Packing</label>
                                     <div class="col-md-6">
-                                        <input type='hidden' name='setting_key' value="<?= ($data["setting_key"] ?? '_biaya_packing') ?>"" />
+                                        <input type='hidden' name='setting_key' value="<?= (isset($data["setting_key"]) ? $data["setting_key"] : '_biaya_packing') ?>" />
                                         <input type="text" id="biaya_packing" name="biaya_packing" placeholder="Biaya Shipping" class="form-control" value="<?= ($data["setting_value"] ?? 0) ?>">
                                     </div>
                                     <div class="col-md-3">
