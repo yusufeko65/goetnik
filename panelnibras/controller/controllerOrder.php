@@ -271,7 +271,11 @@ class controllerOrder
 				if ($captiontarif == 'Konfirmasi Admin') {
 					$grandtotal = $captiontarif;
 				} else {
-					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['kodeunik'] - $data['poin'] - $data['potdeposito'] + ($data['biaya_packing'] ?? 0));
+					$packing = 0;
+					if(isset($data['biaya_packing'])){
+						$packing = $data['biaya_packing'];
+					}
+					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['kodeunik'] - $data['poin'] - $data['potdeposito'] + $packing);
 				}
 				$tabel 	.= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $grandtotal . "</b></td>";
 				$tabel	.= '</tr>';
