@@ -3698,7 +3698,12 @@ class controllerOrder
 				$pdf->Cell(159, 6, 'Potongan Saldo', 1, 0, 'R');
 				$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($data['order']['dari_deposito']), 1, 1, 'R');
 			}
-			$grandtotal = ((int) $data['order']['pesanan_subtotal'] + (int) $data['order']['pesanan_kurir']) - (int) $data['order']['dari_poin'] - (int) $data['order']['dari_deposito'];
+			if ($data['order']['kode_unik'] > 0) {
+				$pdf->Cell(159, 6, 'Kode Unik', 1, 0, 'R');
+				$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($data['order']['kode_unik']), 1, 1, 'R');
+			}
+
+			$grandtotal = ((int) $data['order']['pesanan_subtotal'] + (int) $data['order']['pesanan_kurir']) - (int) $data['order']['dari_poin'] - (int) $data['order']['dari_deposito'] - (int) $data['order']['kode_unik'];
 			$pdf->setFont('Arial', 'B', 8);
 			$pdf->Cell(159, 6, 'Total Yang Harus Dibayar (#' . $data['nopesanan'] . ')', 1, 0, 'R');
 			$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($grandtotal), 1, 1, 'R');

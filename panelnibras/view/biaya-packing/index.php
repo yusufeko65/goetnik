@@ -44,13 +44,13 @@ switch ($menupage) {
     //   $result = $dtPengiriman->editdata($input);
     // }
     $biaya_packing_value = isset($_POST['biaya_packing']) ? $_POST['biaya_packing'] : '';
-    $setting_key =  isset($_POST['setting_key']) ? $_POST['setting_key'] : '';
+    $setting_key =  'config_biayapacking';
     $status = '';
     if($biaya_packing_value != ''){
         $result = $dtSetting->setSettingByKey($setting_key, $biaya_packing_value);
         $status = $result ? 'success' : 'error';
     }
-    $data  = $dtSetting->getSettingByKey("config_biayapacking");
+    $data  = $dtSetting->getSettingByKey($setting_key);
     // $linkpage 	= '&u_token=' . $u_token;
     include "view.php";
     break;
