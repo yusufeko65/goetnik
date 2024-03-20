@@ -26,7 +26,7 @@
 								<td><?php echo $order['nama_pengirim'] ?></td>
 								<td><?php echo $order['nama_penerima'] ?></td>
 								<td class="text-right"><?php echo $order['pesanan_jml'] ?></td>
-								<td class="text-right"><?php echo $dtFungsi->fFormatuang((int)$order['pesanan_subtotal'] + (int)$order['pesanan_kurir'] - (int)$order['dari_poin'] - (int)$order['kode_unik']) ?></td>
+								<td class="text-right"><?php echo $dtFungsi->fFormatuang((int)$order['pesanan_subtotal'] + (int)$order['pesanan_kurir'] - (int)$order['dari_poin'] - (int)$order['kode_unik'] + (int)$order['biaya_packing']) ?></td>
 								<td class="text-center"><?php echo $dtFungsi->ftanggalFull2($order['pesanan_tgl']) ?></td>
 								<td class="text-center"><?php echo $order['status_nama'] ?></td>
 								<td class="text-center"><a href="<?php echo URL_PROGRAM . 'orderdetail/?order=' . $order['pesanan_no'] ?>" class="btn btn-sm btn-outline-info">Detail</a></td>

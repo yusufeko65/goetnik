@@ -62,7 +62,7 @@ class model_Order
 	{
 
 		$sql = "select o.pesanan_no,o.pelanggan_id,o.pesanan_jml,
-				o.pesanan_subtotal,o.pesanan_kurir,o.pesanan_tgl,
+				o.pesanan_subtotal,o.pesanan_kurir,o.kode_unik,o.biaya_packing,o.dropship,o.pesanan_tgl,
 				o.status_id,so.status_nama,o.kurir,sp.shipping_nama,
 				o.servis_kurir,s.servis_code,o.kurir_perkilo,o.grup_member,
 				o.dari_poin,o.potongan_kupon,o.kode_kupon,o.tgl_kirim,

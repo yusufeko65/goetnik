@@ -689,7 +689,7 @@ class controller_Cart
 					$data['dropship'] = '1';
 
 					// Get data packing
-					$modelpacking = new modelPacking();
+					$modelpacking = new model_Packing();
 					$biaya = $modelpacking->getsPacking();
 					$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
 				}
@@ -726,8 +726,8 @@ class controller_Cart
 				//$data['kodeunik'] = rand(50,400);
 				// change to API
 				$url = URL_API_UNIQUE_CODE . $data['totjumlah']; // path to your JSON file
-				$data = file_get_contents($url); // put the contents of the file into a variable
-				$request = json_decode($data,true);
+				$response = file_get_contents($url); // put the contents of the file into a variable
+				$request = json_decode($response,true);
 
 				$data['kodeunik'] = 0;
 				if($request['status']){

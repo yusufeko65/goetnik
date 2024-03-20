@@ -156,6 +156,22 @@ class controller_Shipping {
 				}
 			}
 			$serviskurir = isset($data['serviskurir']) ? explode("::",$data['serviskurir']) : array();
+
+			// Check MP
+			$resi=0;
+			if($serviskurir[2]=="MP"){
+				$resi=1;
+			}
+
+			// Get kode unik
+			$url = URL_API_UNIQUE_CODE . $data['subtotal']; // path to your JSON file
+			$response = file_get_contents($url); // put the contents of the file into a variable
+			$request = json_decode($response,true);
+
+			$kodeunik = 0;
+			if($request['status']){
+				$kodeunik = $request['data'];
+			}
 			
 			$cektarif	= $serviskurir[1];
 			//$cektarif = $this->dataModel->tarifkurir($data);
@@ -167,7 +183,7 @@ class controller_Shipping {
 			} else {
 				$tarif = "Rp. ".$this->Fungsi->fuang($cektarif);
 				$nilaitarif = $cektarif;
-				$nilaitotal = (int)$data['subtotal'] + $cektarif;
+				$nilaitotal = (int)$data['subtotal'] + $cektarif - $kodeunik;
 				$total = "Rp. ".$this->Fungsi->fuang($nilaitotal);
 			}
 			if(count($wilayah) > 0){
@@ -181,10 +197,11 @@ class controller_Shipping {
 			$tarif = '';
 			$nilaitarif = 0;
 			$nilaitotal = 0;
+			$kodeunik = 0;
 			$total = '';
 		}
 		
-		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"nilaitotal"=>$nilaitotal,"wil"=>$wil));
+		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"kodeunik"=>$kodeunik,"nilaitotal"=>$nilaitotal,"wil"=>$wil));
 	}
 
   

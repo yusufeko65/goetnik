@@ -216,8 +216,9 @@
 						</tr>
 						-->
 				<?php
+					$depo_agen = isset($dataorder['deposito_agen']) ? $dataorder['deposito_agen'] : 0;
 				?>
-				<?php if ($dataorder['dari_deposito'] > 0 || $dataorder['deposito_agen'] > 0) { ?>
+				<?php if ($dataorder['dari_deposito'] > 0 || $depo_agen > 0) { ?>
 
 					<tr>
 						<td colspan="7" class="text-right"><b>POTONGAN DARI SALDO</b></td>
@@ -227,9 +228,28 @@
 					</tr>
 
 				<?php } ?>
+				
+				<?php if ($dataorder['dropship'] > 0) { ?>
+
+					<tr>
+						<td colspan="7" class="text-right"><b>Biaya Packing</b></td>
+						<td class="text-right"><?php echo $dtFungsi->fFormatuang($dataorder['biaya_packing']) ?>
+							<input type="hidden" name="biaya_packing" value="<?php echo $dataorder['biaya_packing'] ?>">
+						</td>
+					</tr>
+
+				<?php } ?>
+
+				<tr>
+					<td colspan="7" class="text-right"><b>Kode Unik</b></td>
+					<td class="text-right">(<?php echo $dtFungsi->fFormatuang($dataorder['kode_unik']) ?>)
+						<input type="hidden" name="kodeunik" value="<?php echo $dataorder['kode_unik'] ?>">
+					</td>
+				</tr>
+
 				<tr>
 					<td colspan="7" class="text-right"><b>TOTAL</b></td>
-					<td class="text-right"><b><?php echo $dataorder['kurir_konfirm'] == '1' ? 'Konfirmasi Admin' : $dtFungsi->fFormatuang(((int)$total + (int)$dataorder['pesanan_kurir']) - (int)$dataorder['dari_poin'] - (int)$dataorder['dari_deposito']) ?></b></td>
+					<td class="text-right"><b><?php echo $dataorder['kurir_konfirm'] == '1' ? 'Konfirmasi Admin' : $dtFungsi->fFormatuang(((int)$total + (int)$dataorder['pesanan_kurir']) - (int)$dataorder['dari_poin'] - (int)$dataorder['dari_deposito'] - (int)$dataorder['kode_unik'] + (int)$dataorder['biaya_packing']) ?></b></td>
 				</tr>
 
 			</table>

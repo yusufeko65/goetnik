@@ -217,6 +217,18 @@
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-6">
+											<h6>Kode Unik : </h6>
+										</div>
+										<div class="col-6">
+											<h6 class="text-right" id="caption_kodeunik">-</h6>
+											<input type="hidden" name="kodeunik" id="kodeunik">
+										</div>
+									</div>
+
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-6">
 											<h5>Total Tagihan : </h5>
 										</div>
 										<div class="col-6">

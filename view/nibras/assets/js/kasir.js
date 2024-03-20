@@ -97,6 +97,7 @@ function tarifkurir() {
 	var url = $('#frmkasir').prop("action");
 	var tarif;
 	var nilaitarif;
+	var kodeunik;
 	var datawil = $('#kecamatan_penerima').val() + ',' + $('#serviskurir').val();
 	var cekwil = wil.indexOf(datawil);
 	var totaltarif;
@@ -119,6 +120,12 @@ function tarifkurir() {
 					nilaitarifwil[datawil] = json['tarifnilai'];
 					totaltarifwil[datawil] = json['total'];
 					tarif = json['tarif'];
+
+					kodeunik = convertToRupiah(json['kodeunik']);
+
+					$('#kodeunik').val(json['kodeunik']);
+					$('#caption_kodeunik').html(kodeunik);
+
 					$('#tarif').html(tarif);
 					$('#tarifkurir').val(json['tarifnilai']);
 					$('#totaltagihan').html(json['total']);
@@ -134,6 +141,12 @@ function tarifkurir() {
 		tarif = tarifwil[datawil];
 		nilaitarif = nilaitarifwil[datawil];
 		totaltarif = totaltarifwil[datawil];
+
+		kodeunik = convertToRupiah(kodeunikwil[datawil]);
+
+		$('#kodeunik').val(kodeunikwil[datawil]);
+		$('#caption_kodeunik').html(kodeunik);
+
 		$('#tarif').html(tarif);
 		$('#tarifkurir').val(nilaitarif);
 		$('#totaltagihan').html(totaltarif);
