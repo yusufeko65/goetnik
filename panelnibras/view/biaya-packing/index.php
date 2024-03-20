@@ -20,7 +20,7 @@ include path_toincludes . "paging.php";
 $dtFungsi->cekHak('biaya-packing', '', 0);
 
 
-$dtSetting = new controllerSetting();
+$dtPacking = new controllerPacking();
 
 $menupage = isset($_GET["op"]) ? $_GET["op"] : "view";
 
@@ -43,14 +43,15 @@ switch ($menupage) {
     // if ($input != '') {
     //   $result = $dtPengiriman->editdata($input);
     // }
+    $id_packing = isset($_POST['id_packing']) ? $_POST['id_packing'] : '';
     $biaya_packing_value = isset($_POST['biaya_packing']) ? $_POST['biaya_packing'] : '';
-    $setting_key =  'config_biayapacking';
     $status = '';
     if($biaya_packing_value != ''){
-        $result = $dtSetting->setSettingByKey($setting_key, $biaya_packing_value);
+        $result = $dtPacking->setPacking($id_packing,$biaya_packing_value);
         $status = $result ? 'success' : 'error';
     }
-    $data  = $dtSetting->getSettingByKey($setting_key);
+    $data  = $dtPacking->getsPacking();
+    $data  = isset($data[0]) ? $data[0] : ['ID' => 0, 'nominal' => 0];
     // $linkpage 	= '&u_token=' . $u_token;
     include "view.php";
     break;

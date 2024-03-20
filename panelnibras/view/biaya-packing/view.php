@@ -15,7 +15,8 @@
                         <div class="form-group">
                                     <label class="col-md-3 control-label">Biaya Packing</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="biaya_packing" name="biaya_packing" placeholder="Biaya Shipping" class="form-control" value="<?= (isset($data["setting_value"]) ? $data["setting_value"] : 0) ?>">
+									<input type="hidden" id="id_packing" name="id_packing" value="<?= $data["ID"] ?>">
+                                        <input type="text" id="biaya_packing" name="biaya_packing" placeholder="Biaya Shipping" class="form-control" value="<?= $data["nominal"] ?>">
                                     </div>
                                     <div class="col-md-3">
                                         <input type="submit"  class="btn btn-sm btn-primary" value='Simpan' />

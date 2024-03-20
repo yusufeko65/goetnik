@@ -67,8 +67,5 @@ class controllerSetting {
 	public function getSettingByKeys($key){
 		return $this->model->getSettingByKeys($key);
 	}
-	public function setSettingByKey($key){
-		return $this->model->setSettingByKey($key);
-	}
 }
 ?>

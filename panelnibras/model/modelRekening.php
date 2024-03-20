@@ -78,7 +78,7 @@ class modelRekening {
 	function totalRekening($data){
 		$where = '';
 		$filter = array();
-		if($data['caridata']!='') $filter[] = " rekening_atasnama like '%".trim($this->db->escape($caridata))."%' OR rekening_no like '%".trim(strip_tags($data['caridata']))."%'";
+		if($data['caridata']!='') $filter[] = " rekening_atasnama like '%".trim($this->db->escape($data['caridata']))."%' OR rekening_no like '%".trim(strip_tags($data['caridata']))."%'";
 		if(!empty($filter))	$where = implode(" and ",$filter);
 		
 		if($where) $where = " WHERE ".$where;
