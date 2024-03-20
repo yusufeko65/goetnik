@@ -505,7 +505,7 @@ class model_Cart
 
 				 '" . $data['totjumlah'] . "','" . $data['kodeunik'] . "','" . $data['subtotal'] . "',
 
-				 '" . $data['tarifkurir'] . "','" . $tgltransaksi . "','0',
+				 '" . $data['tarifkurir'] . "','" . $data['biaya_packing'] . "','" . $tgltransaksi . "','0',
 
 				 '" . $data['status_order'] . "','" . $data['shipping'] . "',
 

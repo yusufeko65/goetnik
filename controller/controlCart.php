@@ -683,9 +683,15 @@ class controller_Cart
 				}
 			}
 			$data['dropship'] = '0';
+			$data['biaya_packing'] = 0;
 			if ($customer['cg_dropship'] == '1') {
 				if (trim($data['nama_pengirim']) != trim($data['nama_penerima']) && trim($data['alamat_pengirim']) != trim($data['alamat_penerima']) && trim($data['telp_pengirim']) != trim($data['telp_penerima'])) {
 					$data['dropship'] = '1';
+
+					// Get data packing
+					$modelpacking = new modelPacking();
+					$biaya = $modelpacking->getsPacking();
+					$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
 				}
 			}
 			$sisaltotalbelanja = $subtotalbelanja - $data['potdeposito'];
@@ -780,6 +786,14 @@ class controller_Cart
 				$tabel .= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $captiontarif . "</b></td>";
 				$tabel .= '</tr>';
 
+				/* biayapacking */
+				if($data['biaya_packing'] > 0){
+					$tabel	.= "<tr style=\"margin:0;padding:0\">";
+					$tabel .= "<td colspan=\"6\" style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Biaya Packing</b> </td>";
+					$tabel .= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $this->Fungsi->fFormatuang($data['biaya_packing']) . "</b></td>";
+					$tabel .= '</tr>';
+				}
+
 				/* poin jika ada */
 				if ($data['poin'] > 0) {
 					$tabel .= '<tr style=\"margin:0;padding:0\">';
@@ -812,7 +826,7 @@ class controller_Cart
 				if ($captiontarif == 'Konfirmasi Admin') {
 					$grandtotal = $captiontarif;
 				} else {
-					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['poin'] - $data['potdeposito'] - $data['kodeunik']);
+					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['poin'] - $data['potdeposito'] - $data['kodeunik'] + $data['biaya_packing']);
 				}
 				$tabel 	.= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $grandtotal . "</b></td>";
 				$tabel	.= '</tr>';

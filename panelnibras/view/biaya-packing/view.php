@@ -13,7 +13,7 @@
 					<form role="form-inline" id="frmcari" name="frmcari" action="<?php echo URL_PROGRAM_ADMIN . 'biaya-packing?u_token=' . $u_token ?>" method='post'>
 						<div class="col-md-6">
                         <div class="form-group">
-                                    <label class="col-md-3 control-label">Biaya Packing</label>
+                                    <label class="col-md-3 control-label">Biaya Packing (Dropship)</label>
                                     <div class="col-md-6">
 									<input type="hidden" id="id_packing" name="id_packing" value="<?= $data["ID"] ?>">
                                         <input type="text" id="biaya_packing" name="biaya_packing" placeholder="Biaya Shipping" class="form-control" value="<?= $data["nominal"] ?>">

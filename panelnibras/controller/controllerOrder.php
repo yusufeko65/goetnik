@@ -221,9 +221,15 @@ class controllerOrder
 			$data['InsertDepositoDetail'] = false;
 
 			$data['dropship'] = '0';
+			$data['biaya_packing'] = 0;
 			if ($customer['cg_dropship'] == '1') {
 				if (trim($data['nama_pengirim']) != trim($data['nama_penerima']) && trim($data['alamat_pengirim']) != trim($data['alamat_penerima']) && trim($data['telp_pengirim']) != trim($data['telp_penerima'])) {
 					$data['dropship'] = '1';
+
+					// Get data packing
+					$modelpacking = new modelPacking();
+					$biaya = $modelpacking->getsPacking();
+					$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
 				}
 			}
 			$simpan = $this->model->simpanneworder($data);
@@ -259,6 +265,14 @@ class controllerOrder
 				$tabel .= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $captiontarif . "</b></td>";
 				$tabel .= '</tr>';
 
+				/* biayapacking */
+				if($data['biaya_packing'] > 0){
+					$tabel	.= "<tr style=\"margin:0;padding:0\">";
+					$tabel .= "<td colspan=\"6\" style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Biaya Packing</b> </td>";
+					$tabel .= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $this->Fungsi->fFormatuang($data['biaya_packing']) . "</b></td>";
+					$tabel .= '</tr>';
+				}
+
 				/* kodeunik */
 				$tabel	.= "<tr style=\"margin:0;padding:0\">";
 				$tabel .= "<td colspan=\"6\" style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>Kode Unik</b> </td>";
@@ -271,10 +285,7 @@ class controllerOrder
 				if ($captiontarif == 'Konfirmasi Admin') {
 					$grandtotal = $captiontarif;
 				} else {
-					$packing = 0;
-					if(isset($data['biaya_packing'])){
-						$packing = $data['biaya_packing'];
-					}
+					$packing = $data['biaya_packing'];
 					$grandtotal = 'Rp. ' . $this->Fungsi->fuang(($subtotal + $data['tarifkurir']) - $data['kodeunik'] - $data['poin'] - $data['potdeposito'] + $packing);
 				}
 				$tabel 	.= "<td style=\"text-align:right;margin:0;padding:10px\" align=\"right\" bgcolor=\"#ffffff\"><b>" . $grandtotal . "</b></td>";
@@ -3698,12 +3709,16 @@ class controllerOrder
 				$pdf->Cell(159, 6, 'Potongan Saldo', 1, 0, 'R');
 				$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($data['order']['dari_deposito']), 1, 1, 'R');
 			}
+			if ($data['order']['biaya_packing'] > 0) {
+				$pdf->Cell(159, 6, 'Biaya Packing', 1, 0, 'R');
+				$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($data['order']['biaya_packing']), 1, 1, 'R');
+			}
 			if ($data['order']['kode_unik'] > 0) {
 				$pdf->Cell(159, 6, 'Kode Unik', 1, 0, 'R');
 				$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($data['order']['kode_unik']), 1, 1, 'R');
 			}
 
-			$grandtotal = ((int) $data['order']['pesanan_subtotal'] + (int) $data['order']['pesanan_kurir']) - (int) $data['order']['dari_poin'] - (int) $data['order']['dari_deposito'] - (int) $data['order']['kode_unik'];
+			$grandtotal = ((int) $data['order']['pesanan_subtotal'] + (int) $data['order']['pesanan_kurir']) - (int) $data['order']['dari_poin'] - (int) $data['order']['dari_deposito'] - (int) $data['order']['kode_unik'] + (int) $data['order']['biaya_packing'];
 			$pdf->setFont('Arial', 'B', 8);
 			$pdf->Cell(159, 6, 'Total Yang Harus Dibayar (#' . $data['nopesanan'] . ')', 1, 0, 'R');
 			$pdf->Cell(41, 6, $this->Fungsi->fFormatuang($grandtotal), 1, 1, 'R');

@@ -281,7 +281,7 @@ class modelOrder
 
 				pesanan_subtotal as subtotal,
 
-				kode_unik,
+				kode_unik, biaya_packing,
 
 				pesanan_tgl as tgl,
 
@@ -369,7 +369,7 @@ class modelOrder
 
 		$sql = "select o.pesanan_no,o.pelanggan_id,c.cust_nama,cg.cg_nm as grup_cust,cg.cg_deposito,
 
-				o.pesanan_jml,o.pesanan_subtotal,o.kode_unik,o.pesanan_kurir,o.kurir_perkilo,o.pesanan_tgl,
+				o.pesanan_jml,o.pesanan_subtotal,o.kode_unik,o.pesanan_kurir,o.biaya_packing,o.kurir_perkilo,o.pesanan_tgl,
 
 				o.status_id,so.status_nama,o.kurir,sp.shipping_nama,
 
@@ -2858,7 +2858,7 @@ class modelOrder
 
 				 '" . $data['totjumlah'] . "','" . $data['kodeunik'] . "','" . $data['subtotal'] . "',
 
-				 '" . $data['tarifkurir'] . "','" . $data['tgltransaksi'] . "','0',
+				 '" . $data['tarifkurir'] . "','" . $data['biaya_packing'] . "','" . $data['tgltransaksi'] . "','0',
 
 				 '" . $data['status_order'] . "','" . $data['shipping'] . "',
 

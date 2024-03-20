@@ -78,10 +78,20 @@ class controller_Shipping {
 				$jmlservis = count($datagrab['rajaongkir']['results'][$i]['costs']);
 				for($x=0;$x < $jmlservis; $x++){
 					$kode_ship = strtoupper($datagrab['rajaongkir']['results'][$i]['code']);
+
+					$shipping_code = '';
+					if(isset($kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"])){
+						$shipping_code = $kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"];
+					}
 					
+					$servis_id = '';
+					if(isset($kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"])){
+						$servis_id = $kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"];
+					}
+
 					$dataship[] = array("shipping_code_rajaongkir"=>$kode_ship,
-										"shipping_code"=>$kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"],
-										"servis_id"=>$kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"],
+										"shipping_code"=>$shipping_code,
+										"servis_id"=>$servis_id,
 										"servis_code"=>$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service'],
 										"tarif"=>$datagrab['rajaongkir']['results'][$i]['costs'][$x]['cost'][0]['value'],
 										"etd"=>$datagrab['rajaongkir']['results'][$i]['costs'][$x]['cost'][0]['etd'],

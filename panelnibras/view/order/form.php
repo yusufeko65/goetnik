@@ -609,6 +609,20 @@
 							</td>
 
 						</tr>
+						
+						<?php if($order['dropship']) : ;?>
+						<tr>
+
+							<td colspan="6" class="text-right"><b>Biaya Packing</b></td>
+
+							<td class="text-right">(<?php echo $dtFungsi->fFormatuang($order['biaya_packing']) ?>)
+
+								<input type="hidden" id="biayapacking" value="<?php echo $order['biaya_packing'] ?>">
+
+							</td>
+
+						</tr>
+						<?php endif; ;?>
 
 						<tr>
 
@@ -632,7 +646,7 @@
 
 								<?php if ($order['pesanan_kurir'] < 0) $order['pesanan_kurir'] = 0 ?>
 
-								<?php $grandtotal = ((int) $order['pesanan_kurir'] + (int) $order['pesanan_subtotal']) - (int) $order['dari_poin'] - (int) $order['dari_deposito'] - (int) $order['kode_unik']; ?>
+								<?php $grandtotal = ((int) $order['pesanan_kurir'] + (int) $order['pesanan_subtotal']) - (int) $order['dari_poin'] - (int) $order['dari_deposito'] - (int) $order['kode_unik'] + (int) $order['biaya_packing']; ?>
 
 								<input type="hidden" name="grandtotal" id="grandtotal" value="<?php echo $grandtotal ?>">
 
