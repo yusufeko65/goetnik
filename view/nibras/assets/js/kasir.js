@@ -186,6 +186,8 @@ function ambiltarif() {
 }
 
 function simpanorder() {
+	$('#simpancart').prop('disabled',true);
+
 	var frm = $('#frmkasir').serialize() + '&aksi=simpanorder';
 	var url = $('#frmkasir').prop("action");
 	var serviskurir = $('#serviskurir').val();
@@ -200,11 +202,13 @@ function simpanorder() {
 	//return false;
 	if ((propinsi == '' || propinsi == '0') || (kabupaten == '' && kabupaten == '0') || (kecamatan == '' || kecamatan == '0')) {
 		alert('Error', 'error', 'Masukkan Wilayah (Propinsi, Kota/kabupaten, Kecamatan)', 'simpancart');
+		$('#simpancart').prop('disabled',false);
 		return false;
 	}
 
 	if (serviskurir == '' || serviskurir == '0') {
 		alert('Error', 'error', 'Pilih Kurir', 'simpancart');
+		$('#simpancart').prop('disabled',false);
 		return false;
 	}
 
@@ -222,6 +226,7 @@ function simpanorder() {
 			}
 		},
 		error: function (e) {
+			$('#simpancart').prop('disabled',false);
 			alert('Error: ' + e);
 		}
 	});
