@@ -483,7 +483,7 @@ class model_Cart
 		
 		$tgltransaksi = $data['tgltransaksi'];
 
-		$lasttransaksi = date('Y-m-d H:i:s', strtotime($tgltransaksi. ' -5 minutes'));
+		$lasttransaksi = date('Y-m-d H:i:s', strtotime($tgltransaksi. ' -10 minutes'));
 
 		$status = '';
 
@@ -498,7 +498,7 @@ class model_Cart
 		$this->db->query($lock);
 
 		/* Check double order 10 minute */
-		$sql = "SELECT * FROM _order WHERE pesanan_subtotal='".$data['subtotal']."' AND pesanan_tgl BETWEEN '$lasttransaksi' AND '$tgltransaksi'";
+		$sql = "SELECT * FROM _order WHERE pelanggan_id='".$data['cust_id']."' AND pesanan_subtotal='".$data['subtotal']."' AND pesanan_tgl BETWEEN '$lasttransaksi' AND '$tgltransaksi'";
 
 		$strsql = $this->db->query($sql);
 

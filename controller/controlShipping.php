@@ -157,6 +157,19 @@ class controller_Shipping {
 			}
 			$serviskurir = isset($data['serviskurir']) ? explode("::",$data['serviskurir']) : array();
 
+			// Check Dropship
+			$packing = 0;
+
+			$modelreseller = New model_Reseller();
+			$customer = $modelreseller->getResellerCompleteById($_SESSION['idmember']);
+			if($customer['cg_dropship']=='1'){
+
+				// Get data packing
+				$modelpacking = new model_Packing();
+				$biaya = $modelpacking->getsPacking();
+				$packing = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
+			}
+
 			// Check MP
 			$resi=0;
 			if($serviskurir[2]=="MP"){
@@ -183,7 +196,7 @@ class controller_Shipping {
 			} else {
 				$tarif = "Rp. ".$this->Fungsi->fuang($cektarif);
 				$nilaitarif = $cektarif;
-				$nilaitotal = (int)$data['subtotal'] + $cektarif - $kodeunik;
+				$nilaitotal = (int)$data['subtotal'] + $cektarif - $kodeunik + $packing;
 				$total = "Rp. ".$this->Fungsi->fuang($nilaitotal);
 			}
 			if(count($wilayah) > 0){
@@ -199,9 +212,10 @@ class controller_Shipping {
 			$nilaitotal = 0;
 			$kodeunik = 0;
 			$total = '';
+			$packing = 0;
 		}
 		
-		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"kodeunik"=>$kodeunik,"nilaitotal"=>$nilaitotal,"wil"=>$wil));
+		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"kodeunik"=>$kodeunik,"nilaitotal"=>$nilaitotal,"wil"=>$wil,"packing"=>$packing));
 	}
 
   

@@ -214,6 +214,17 @@
 									</div>
 
 								</li>
+								<li id="biaya-packing-kasir" class="list-group-item">
+									<div class="row">
+										<div class="col-6">
+											<h6>Biaya Packing : </h6>
+										</div>
+										<div class="col-6">
+											<h6 class="text-right" id="caption_biayapacking">-</h6>
+										</div>
+									</div>
+
+								</li>
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-6">

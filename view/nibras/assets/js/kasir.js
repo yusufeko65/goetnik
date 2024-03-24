@@ -2,6 +2,8 @@ var wil = [];
 var tarifwil = [];
 var nilaitarifwil = [];
 var totaltarifwil = [];
+var kodeunikwil = [];
+var packingwil = [];
 if ($('#tarif').html() == '-') {
 	$('#serviskurir').val(0);
 }
@@ -98,6 +100,7 @@ function tarifkurir() {
 	var tarif;
 	var nilaitarif;
 	var kodeunik;
+	var packing;
 	var datawil = $('#kecamatan_penerima').val() + ',' + $('#serviskurir').val();
 	var cekwil = wil.indexOf(datawil);
 	var totaltarif;
@@ -119,12 +122,16 @@ function tarifkurir() {
 					tarifwil[datawil] = json['tarif'];
 					nilaitarifwil[datawil] = json['tarifnilai'];
 					totaltarifwil[datawil] = json['total'];
+					kodeunikwil[datawil] = json['kodeunik'];
+					packingwil[datawil] = json['packing'];
 					tarif = json['tarif'];
 
 					kodeunik = convertToRupiah(json['kodeunik']);
+					packing = convertToRupiah(json['packing']);
 
 					$('#kodeunik').val(json['kodeunik']);
 					$('#caption_kodeunik').html(kodeunik);
+					$('#caption_biayapacking').html(packing);
 
 					$('#tarif').html(tarif);
 					$('#tarifkurir').val(json['tarifnilai']);
@@ -143,9 +150,11 @@ function tarifkurir() {
 		totaltarif = totaltarifwil[datawil];
 
 		kodeunik = convertToRupiah(kodeunikwil[datawil]);
+		packing = convertToRupiah(packingwil[datawil]);
 
 		$('#kodeunik').val(kodeunikwil[datawil]);
 		$('#caption_kodeunik').html(kodeunik);
+		$('#caption_biayapacking').html(packing);
 
 		$('#tarif').html(tarif);
 		$('#tarifkurir').val(nilaitarif);
