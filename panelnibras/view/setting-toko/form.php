@@ -335,7 +335,7 @@
                                     <div class="col-sm-2">
                                         <input type="text" id="masabayar" name="config_masabayar" placeholder="Masa Pembayara Belanja" class="form-control" value="<?php echo $data['config_masabayar'] ?>">
                                     </div>
-                                    <label class="control-label">Hari</label>
+                                    <label class="control-label">Jam</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Target Aktif Pelanggan</label>
