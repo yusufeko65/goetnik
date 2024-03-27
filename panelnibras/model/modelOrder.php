@@ -841,7 +841,7 @@ class modelOrder
 
 
 
-		$sql = "SELECT idpesanan,pesanan_no,pesanan_tgl FROM _order WHERE status_id='" . $order_status . "' AND (pesanan_tgl + INTERVAL $masa_belanja DAY) < '$tgl'";
+		$sql = "SELECT idpesanan,pesanan_no,pesanan_tgl FROM _order WHERE status_id='" . $order_status . "' AND (pesanan_tgl + INTERVAL $masa_belanja HOUR) < '$tgl'";
 
 		$strsql = $this->db->query($sql);
 
