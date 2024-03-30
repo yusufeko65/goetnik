@@ -237,6 +237,8 @@
 				}
 				$('#hasiladdress').html(msg['result']);
 				$('#hasiladdress').show(0);
+
+				resettarifkurir();
 				return false;
 			},
 			error: function(e) {
@@ -347,6 +349,8 @@
 				}
 				$('#hasiladdress').html(msg['result']);
 				$('#hasiladdress').show(0);
+
+				resettarifkurir();
 				return false;
 			},
 			error: function(e) {

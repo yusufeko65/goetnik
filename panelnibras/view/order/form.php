@@ -610,19 +610,17 @@
 
 						</tr>
 						
-						<?php if($order['dropship']) : ;?>
 						<tr>
 
 							<td colspan="6" class="text-right"><b>Biaya Packing</b></td>
 
-							<td class="text-right">(<?php echo $dtFungsi->fFormatuang($order['biaya_packing']) ?>)
+							<td class="text-right"><?php echo $dtFungsi->fFormatuang($order['biaya_packing']) ?>
 
 								<input type="hidden" id="biayapacking" value="<?php echo $order['biaya_packing'] ?>">
 
 							</td>
 
 						</tr>
-						<?php endif; ;?>
 
 						<tr>
 
@@ -1400,6 +1398,10 @@
 
 		var subtotal = $('#subtotal').val();
 
+		var biayapacking = $('#biayapacking').val();
+
+		var kodeunik = $('#kodeunik').val();
+
 		$('#btnsimpandeposito').button("loading");
 
 		if (jmldeposit < 1) {
@@ -1422,7 +1424,7 @@
 
 		var datanya = "pesanan_no=" + pesanan_no + "&jmldeposit=" + jmldeposit + "&pelanggan_id=" + pelanggan + "&potongandepositold=" + potdepositolama;
 
-		datanya += "&tarifkurir=" + tarifkurir + "&subtotal=" + subtotal;
+		datanya += "&tarifkurir=" + tarifkurir + "&subtotal=" + subtotal + "&biayapacking=" + biayapacking + "&kodeunik=" + kodeunik;
 
 		var url = $('#frmdata').prop("action") + '?modul=simpaneditpotongandeposit&u_token=<?php echo $u_token ?>';
 

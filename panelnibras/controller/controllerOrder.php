@@ -220,18 +220,21 @@ class controllerOrder
 			$data['updatedeposito'] = false;
 			$data['InsertDepositoDetail'] = false;
 
-			$data['dropship'] = '0';
-			$data['biaya_packing'] = 0;
-			if ($customer['cg_dropship'] == '1') {
-				if (trim($data['nama_pengirim']) != trim($data['nama_penerima']) && trim($data['alamat_pengirim']) != trim($data['alamat_penerima']) && trim($data['telp_pengirim']) != trim($data['telp_penerima'])) {
-					$data['dropship'] = '1';
+			// check dropship
 
-					// Get data packing
-					$modelpacking = new modelPacking();
-					$biaya = $modelpacking->getsPacking();
-					$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
-				}
-			}
+			// $data['dropship'] = '0';
+			// $data['biaya_packing'] = 0;
+			// if ($customer['cg_dropship'] == '1') {
+			// 	if (trim($data['nama_pengirim']) != trim($data['nama_penerima']) && trim($data['alamat_pengirim']) != trim($data['alamat_penerima']) && trim($data['telp_pengirim']) != trim($data['telp_penerima'])) {
+			// 		$data['dropship'] = '1';
+
+			// 		// Get data packing
+			// 		$modelpacking = new modelPacking();
+			// 		$biaya = $modelpacking->getsPacking();
+			// 		$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
+			// 	}
+			// }
+			
 			$simpan = $this->model->simpanneworder($data);
 			if ($simpan['status']=='success') {
 				$status = 'success';
@@ -734,10 +737,20 @@ class controllerOrder
 						for ($x = 0; $x < $jmlservis; $x++) {
 							$kode_ship = strtoupper($datagrab['rajaongkir']['results'][$i]['code']);
 
+							$shipping = '';
+							if(isset($kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"])){
+								$shipping = $kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"];
+							}
+
+							$servis = 0;
+							if(isset($kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"])){
+								$servis = $kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"];
+							}
+
 							$servis_rajaongkir[] = array(
 								"shipping_code_rajaongkir" => $kode_ship,
-								"shipping_code" => $kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["shipping_code"],
-								"servis_id" => $kurir["{$kode_ship}"]["{$datagrab['rajaongkir']['results'][$i]['costs'][$x]['service']}"]["servis"],
+								"shipping_code" => $shipping,
+								"servis_id" => $servis,
 								"servis_code" => $datagrab['rajaongkir']['results'][$i]['costs'][$x]['service'],
 								"tarif" => $datagrab['rajaongkir']['results'][$i]['costs'][$x]['cost'][0]['value'],
 								"etd" => $datagrab['rajaongkir']['results'][$i]['costs'][$x]['cost'][0]['etd'],
@@ -1245,6 +1258,8 @@ class controllerOrder
 						}
 					}
 					$data['keterangan'] = 'Menggunakan Saldo di Order ' . sprintf('%08s', (int) $data["nopesanan"]);
+					
+					$data['biaya_packing'] = 0;
 					if ($getdropship == '1') {
 						if (
 							$data['nama_penerima'] != $data['nama_pengirim'] ||
@@ -1252,6 +1267,11 @@ class controllerOrder
 							$data['hp_penerima'] != $data['hp_pengirim']
 						) {
 							$data['dropship'] = '1';
+
+							// biaya packing
+							$modelpacking = new modelPacking();
+							$biaya = $modelpacking->getsPacking();
+							$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;	
 						} else {
 							$data['dropship'] = '0';
 						}
@@ -1498,6 +1518,7 @@ class controllerOrder
 				}
 				$data['keterangan'] = 'Menggunakan Saldo di Order ' . sprintf('%08s', (int) $data["nopesanan"]);
 
+				$data['biaya_packing'] = 0;
 				if ($getdropship == '1') {
 					if (
 						$data['nama_penerima'] != $data['nama_pengirim'] &&
@@ -1505,6 +1526,12 @@ class controllerOrder
 						$data['hp_penerima'] != $data['hp_pengirim']
 					) {
 						$data['dropship'] = '1';
+
+						// Get biaya packing
+						$modelpacking = new modelPacking();
+						$biaya = $modelpacking->getsPacking();
+						$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
+
 					} else {
 						$data['dropship'] = '0';
 					}
@@ -2868,7 +2895,9 @@ class controllerOrder
 			$depositnew   	= $data['jmldeposit'];
 			$subtotal		= $data['subtotal'];
 			$tarifkurir		= $data['tarifkurir'];
-			$totalbelanja   = $subtotal + $tarifkurir;
+			$biayapacking	= $data['biayapacking'];
+			$kodeunik		= $data['kodeunik'];
+			$totalbelanja   = $subtotal + $tarifkurir + $biayapacking - $kodeunik;
 			if (($depositoold + $sisadeposito) < $depositnew) {
 
 				$pesan = "Jumlah Saldo Anda tidak mencukupi";

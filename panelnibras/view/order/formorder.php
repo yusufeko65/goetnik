@@ -158,6 +158,14 @@
 													<div class="clearfix"></div>
 												</li>
 												<li class="list-group-item">
+													<div class="col-md-6">Biaya Packing</div>
+													<div class="col-md-6 text-right" id="caption_packing">-</div>
+													<div class="clearfix">
+														<input type="hidden" value="0" name="biaya_packing" id="packing">
+														<input type="hidden" value="0" name="dropship" id="dropship">
+													</div>
+												</li>
+												<li class="list-group-item">
 													<div class="col-md-6">Kode Unik</div>
 													<div class="col-md-6 text-right" id="caption_kodeunik">-</div>
 													<div class="clearfix">
@@ -208,6 +216,8 @@
 	var nilaitarifwil = [];
 	var totalwil = [];
 	var kodeunikwil = [];
+	var biaya_packing = 0;
+	var sts_dropship = false;
 	$(function() {
 		$('#pelanggan').val("");
 		$('#pelanggan').focus();
@@ -472,6 +482,22 @@
 		});
 	}
 
+	function resettarifkurir(){
+		wil = [];
+		tarifwil = [];
+		nilaitarifwil = [];
+		totalwil = [];
+		kodeunikwil = [];
+
+		$('#caption_kurir').html('-');
+		$('#caption_packing').html('-');
+		$('#caption_kodeunik').html('-');
+		$('#caption_total').html('-');
+
+		$('#packing').val(0);
+		$('#kodeunik').val(0);
+	}
+
 	function tarifkurir() {
 		var propinsi = $('#propinsi_penerima').val();
 		var kabupaten = $('#kabupaten_penerima').val();
@@ -486,6 +512,7 @@
 		var cekwil = wil.indexOf(datawil);
 
 		var total;
+		var ntotal;
 		var data = 'propinsi_penerima=' + propinsi + '&kabupaten_penerima=' + kabupaten;
 		data += '&kecamatan_penerima=' + kecamatan + '&serviskurir=' + serviskurir + '&subtotal=' + subtotal;
 		data += '&totberat=' + totberat;
@@ -506,16 +533,31 @@
 						alert(json['result']);
 					} else {
 
+						biaya_packing = json['packing'];
 						tarifwil[datawil] = json['tarif'];
 						kodeunikwil[datawil] = json['kodeunik'];
 						nilaitarifwil[datawil] = convertToRupiah(json['nilaitarif']);
 
 						kodeunik = convertToRupiah(json['kodeunik']);
 
+						ntotal = parseInt(json['nilaitotal']);
+						if(sts_dropship){
+							ntotal += parseInt(biaya_packing);
+
+							$('#packing').val(biaya_packing);
+							$('#caption_packing').html(convertToRupiah(biaya_packing));
+
+							$('#dropship').val(1);
+						}else{
+							$('#packing').val(0);
+							$('#caption_packing').html("-");
+
+							$('#dropship').val(0);
+						}
+
 						tarif = json['tarif'];
 						if (tarif != 'Konfirmasi Admin') {
-							total = parseInt(json['nilaitotal']);
-							total = convertToRupiah(total);
+							total = convertToRupiah(ntotal);
 						} else {
 							total = 'Konfirmasi Admin';
 						}
@@ -524,13 +566,14 @@
 						}else{
 							$('#noresi').prop('disabled',false);
 						}
-						totalwil[datawil] = total;
+						
 						$('#kodeunik').val(json['kodeunik']);
 
 						$('#caption_kurir').html(tarif);
 						$('#caption_kodeunik').html(kodeunik);
-						$('#caption_total').html(total);
 
+						$('#caption_total').html(total);
+						totalwil[datawil] = total;
 					}
 				},
 				error: function(e) {
@@ -807,6 +850,11 @@
 			$('#alamat_pengirim').val() != $('#alamat_penerima').val() &&
 			$('#telp_pengirim').val() != $('#telp_penerima').val()) {
 			$('#platalamat_pengirim').show();
+
+			// dropship
+			sts_dropship = true;
+		}else{
+			sts_dropship = false;
 		}
 	}
 

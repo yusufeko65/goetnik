@@ -1504,6 +1504,8 @@ class modelOrder
 
 		$sql = "update _order set dropship = '" . $data['dropship'] . "',
 
+				biaya_packing='" . $data['biaya_packing'] . "',
+
 				pesanan_kurir='" . $data['tarifkurir'] . "',
 
 				kurir_perkilo='" . $data['hrgkurir_perkilo'] . "',

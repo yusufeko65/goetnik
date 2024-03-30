@@ -210,6 +210,11 @@ class controllerShipping {
 				$resi=1;
 			}
 
+			// Get data packing
+			$modelpacking = new modelPacking();
+			$biaya = $modelpacking->getsPacking();
+			$packing = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
+
 			// Get kode unik
 			$url = URL_API_UNIQUE_CODE . $data['subtotal']; // path to your JSON file
 			$response = file_get_contents($url); // put the contents of the file into a variable
@@ -246,8 +251,10 @@ class controllerShipping {
 			$nilaitotal = 0;
 			$kodeunik = 0;
 			$total = '';
+			$packing = 0;
+			$resi = 0;
 		}
-		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"kodeunik"=>$kodeunik,"nilaitotal"=>$nilaitotal,"wil"=>$wil,"resi"=>$resi));
+		echo json_encode(array("status"=>$status,"tarif"=>$tarif,"nilaitarif"=>$nilaitarif,"total"=>$total,"kodeunik"=>$kodeunik,"nilaitotal"=>$nilaitotal,"wil"=>$wil,"resi"=>$resi,"packing"=>$packing));
 	}
 	
 	function datashippingByID($id){
