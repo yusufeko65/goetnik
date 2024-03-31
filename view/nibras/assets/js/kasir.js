@@ -4,6 +4,8 @@ var nilaitarifwil = [];
 var totaltarifwil = [];
 var kodeunikwil = [];
 var packingwil = [];
+var biaya_packing = 0;
+var sts_dropship = false;
 if ($('#tarif').html() == '-') {
 	$('#serviskurir').val(0);
 }
@@ -94,6 +96,23 @@ function serviskurirtarif(id_propinsi = 0, id_kabupaten = 0, id_kecamatan = 0) {
 	});
 }
 
+function resettarifkurir(){
+	wil = [];
+	tarifwil = [];
+	nilaitarifwil = [];
+	totaltarifwil = [];
+	kodeunikwil = [];
+	packingwil = [];
+
+	$('#tarif').html('-');
+	$('#caption_biayapacking').html('-');
+	// $('#caption_kodeunik').html('-');
+	$('#totaltagihan').html('-');
+
+	$('#packing').val(0);
+	// $('#kodeunik').val(0);
+}
+
 function tarifkurir() {
 	var frm = $('#frmkasir').serialize() + '&aksi=tarifkurir';
 	var url = $('#frmkasir').prop("action");
@@ -119,23 +138,41 @@ function tarifkurir() {
 					alert('Error', 'error', json['result'], 'serviskurir');
 				} else {
 
+					biaya_packing = json['packing'];
+
 					tarifwil[datawil] = json['tarif'];
 					nilaitarifwil[datawil] = json['tarifnilai'];
-					totaltarifwil[datawil] = json['total'];
-					kodeunikwil[datawil] = json['kodeunik'];
+					// kodeunikwil[datawil] = json['kodeunik'];
 					packingwil[datawil] = json['packing'];
 					tarif = json['tarif'];
 
-					kodeunik = convertToRupiah(json['kodeunik']);
+					// kodeunik = convertToRupiah(json['kodeunik']);
 					packing = convertToRupiah(json['packing']);
 
-					$('#kodeunik').val(json['kodeunik']);
+					var ntotal = parseInt(json['nilaitotal']);
+					if(sts_dropship){
+						ntotal += parseInt(biaya_packing);
+
+						$('#packing').val(biaya_packing);
+						$('#caption_biayapacking').html(packing);
+
+						$('#dropship').val(1);
+					}else{
+						$('#packing').val(0);
+						$('#caption_biayapacking').html("-");
+
+						$('#dropship').val(0);
+					}
+
+					total = convertToRupiah(ntotal);
+
+					// $('#kodeunik').val(json['kodeunik']);
 					$('#caption_kodeunik').html(kodeunik);
-					$('#caption_biayapacking').html(packing);
 
 					$('#tarif').html(tarif);
 					$('#tarifkurir').val(json['tarifnilai']);
-					$('#totaltagihan').html(json['total']);
+					$('#totaltagihan').html(total);
+					totaltarifwil[datawil] = total;
 				}
 			},
 			error: function (e) {
@@ -149,11 +186,11 @@ function tarifkurir() {
 		nilaitarif = nilaitarifwil[datawil];
 		totaltarif = totaltarifwil[datawil];
 
-		kodeunik = convertToRupiah(kodeunikwil[datawil]);
+		// kodeunik = convertToRupiah(kodeunikwil[datawil]);
 		packing = convertToRupiah(packingwil[datawil]);
 
-		$('#kodeunik').val(kodeunikwil[datawil]);
-		$('#caption_kodeunik').html(kodeunik);
+		// $('#kodeunik').val(kodeunikwil[datawil]);
+		// $('#caption_kodeunik').html(kodeunik);
 		$('#caption_biayapacking').html(packing);
 
 		$('#tarif').html(tarif);
@@ -305,6 +342,17 @@ function gantiAlamat(tipe, alamat) {
 			serviskurirtarif(id_propinsi, id_kabupaten, id_kecamatan);
 
 		}
+
+		if ($('#nama_penerima').val() != $('#nama_pengirim').val() &&
+			$('#telp_pengirim').val() != $('#telp_penerima').val()) {
+
+			// dropship
+			sts_dropship = true;
+		}else{
+			sts_dropship = false;
+		}
+
+		resettarifkurir();
 	})
 
 }

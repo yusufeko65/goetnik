@@ -534,7 +534,7 @@ class controller_Cart
 			//$data['nopesanan'] = sprintf('%08s', $kodeakhir + 1);
 			$data['nopesanan'] = $kodeakhir + 1;
 
-			$subtotalbelanja = ($data['subtotal'] + $data['tarifkurir']) - $data['poin'];
+			$subtotalbelanja = ($data['subtotal'] + $data['tarifkurir']) - $data['poin'] + $data['biaya_packing'];
 
 			$checkpoin = $modelreseller->getTotalPoin($data['cust_id']);
 			if ($data['poin'] > 0) {
@@ -682,18 +682,18 @@ class controller_Cart
 					$gunakandeposito == 1;
 				}
 			}
-			$data['dropship'] = '0';
-			$data['biaya_packing'] = 0;
-			if ($customer['cg_dropship'] == '1') {
-				if (trim($data['nama_pengirim']) != trim($data['nama_penerima']) && trim($data['alamat_pengirim']) != trim($data['alamat_penerima']) && trim($data['telp_pengirim']) != trim($data['telp_penerima'])) {
-					$data['dropship'] = '1';
+			// $data['dropship'] = '0';
+			// $data['biaya_packing'] = 0;
+			// if ($customer['cg_dropship'] == '1') {
+			// 	if (trim($data['nama_pengirim']) != trim($data['nama_penerima']) && trim($data['alamat_pengirim']) != trim($data['alamat_penerima']) && trim($data['telp_pengirim']) != trim($data['telp_penerima'])) {
+			// 		$data['dropship'] = '1';
 
-					// Get data packing
-					$modelpacking = new model_Packing();
-					$biaya = $modelpacking->getsPacking();
-					$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
-				}
-			}
+			// 		// Get data packing
+			// 		$modelpacking = new model_Packing();
+			// 		$biaya = $modelpacking->getsPacking();
+			// 		$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
+			// 	}
+			// }
 			$sisaltotalbelanja = $subtotalbelanja - $data['potdeposito'];
 
 			//$data['status_order'] = $this->Fungsi->fcaridata('_setting','setting_value','setting_key','config_orderstatus');
@@ -811,7 +811,7 @@ class controller_Cart
 					$tabel .= '</tr>';
 				}
 
-				/* poin jika ada */
+				/* kode unik jika ada */
 				if ($data['kodeunik'] > 0) {
 					$tabel .= '<tr style=\"margin:0;padding:0\">';
 					$tabel .= '<td colspan="5"></td>';

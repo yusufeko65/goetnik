@@ -229,7 +229,7 @@ class model_Order
 		if ($status_order != '') {
 			$w .=  "and status_id='" . $status_order . "'";
 		}
-		$sql = "select pesanan_no,pesanan_subtotal,
+		$sql = "select pesanan_no,pesanan_subtotal,biaya_packing,kode_unik,
 				pesanan_kurir,pesanan_tgl,dari_poin,potongan_kupon,dari_deposito
 				from _order 
 				where pelanggan_id='" . $idmember . "' " . $w . "
@@ -758,6 +758,7 @@ class model_Order
 		}
 
 		$sql = "update _order set dropship = '" . $data['dropship'] . "',
+				biaya_packing='" . $data['biaya_packing'] . "',
 				pesanan_kurir='" . $data['tarifkurir'] . "',
 				kurir_perkilo='" . $data['hrgkurir_perkilo'] . "',
 				dari_poin='" . $data['dari_poin'] . "'

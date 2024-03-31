@@ -157,18 +157,10 @@ class controller_Shipping {
 			}
 			$serviskurir = isset($data['serviskurir']) ? explode("::",$data['serviskurir']) : array();
 
-			// Check Dropship
-			$packing = 0;
-
-			$modelreseller = New model_Reseller();
-			$customer = $modelreseller->getResellerCompleteById($_SESSION['idmember']);
-			if($customer['cg_dropship']=='1'){
-
-				// Get data packing
-				$modelpacking = new model_Packing();
-				$biaya = $modelpacking->getsPacking();
-				$packing = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
-			}
+			// Get data packing
+			$modelpacking = new model_Packing();
+			$biaya = $modelpacking->getsPacking();
+			$packing = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
 
 			// Check MP
 			$resi=0;
@@ -196,7 +188,7 @@ class controller_Shipping {
 			} else {
 				$tarif = "Rp. ".$this->Fungsi->fuang($cektarif);
 				$nilaitarif = $cektarif;
-				$nilaitotal = (int)$data['subtotal'] + $cektarif - $kodeunik + $packing;
+				$nilaitotal = (int)$data['subtotal'] + $cektarif - $kodeunik;
 				$total = "Rp. ".$this->Fungsi->fuang($nilaitotal);
 			}
 			if(count($wilayah) > 0){

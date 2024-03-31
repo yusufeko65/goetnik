@@ -60,7 +60,7 @@
 															</div>
 															<div class="col-md-6 text-right">
 																<?php
-																			$total = ($order['pesanan_subtotal'] + $order['pesanan_kurir']) - $order['dari_poin'] - $order['potongan_kupon'] - $order['dari_deposito'];
+																			$total = ($order['pesanan_subtotal'] + $order['pesanan_kurir']) - $order['dari_poin'] - $order['potongan_kupon'] - $order['dari_deposito'] + $order['biaya_packing'] - $order['kode_unik'];
 																			echo 'Rp .' . $dtFungsi->fuang($total);
 																			?>
 															</div>

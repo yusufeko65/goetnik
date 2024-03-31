@@ -1310,6 +1310,8 @@ class controller_Order
 						$data['sisa_dari_poin'] = $data['dari_poin'] - $total;
 					}
 				}
+
+				$data['biaya_packing'] = 0;
 				if ($getdropship == '1') {
 					if (
 						$data['nama_penerima'] != $data['nama_pengirim'] &&
@@ -1317,6 +1319,11 @@ class controller_Order
 						$data['hp_penerima'] != $data['hp_pengirim']
 					) {
 						$data['dropship'] = '1';
+
+						// biaya packing
+						$modelpacking = new model_Packing();
+						$biaya = $modelpacking->getsPacking();
+						$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
 					} else {
 						$data['dropship'] = '0';
 					}
@@ -1518,6 +1525,8 @@ class controller_Order
 						$data['sisa_dari_poin'] = $data['dari_poin'] - $total;
 					}
 				}
+
+				$data['biaya_packing'] = 0;
 				if ($getdropship == '1') { //mengecek apakah grup si member tersebut mendapatkan fasilitas dropship
 
 					if (
@@ -1527,6 +1536,11 @@ class controller_Order
 					) {
 
 						$data['dropship'] = '1';
+
+						// biaya packing
+						$modelpacking = new model_Packing();
+						$biaya = $modelpacking->getsPacking();
+						$data['biaya_packing'] = isset($biaya[0]) ? $biaya[0]['nominal'] :0;
 					} else {
 						$data['dropship'] = '0';
 					}
@@ -1923,7 +1937,7 @@ class controller_Order
 
 		$datadetail = $this->dataModel->getOrderDetail($noorder);
 
-		$tagihan = ($dataorder['pesanan_subtotal'] + $dataorder['pesanan_kurir']) - $dataorder['dari_deposito'];
+		$tagihan = ($dataorder['pesanan_subtotal'] + $dataorder['pesanan_kurir']) - $dataorder['dari_deposito'] + $dataorder['biaya_packing'] - $dataorder['kode_unik'];
 
 		$modelreseller = new model_Reseller();
 		$checkdeposit = $modelreseller->gettotalDeposito($dataorder['pelanggan_id']);
