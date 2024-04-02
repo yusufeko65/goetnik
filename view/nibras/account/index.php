@@ -293,7 +293,7 @@ switch($modul){
 		$modelreseller = new model_Reseller();
 		$checkdeposit = $modelreseller->gettotalDeposito($dataorder['pelanggan_id']);
 
-		$tagihan = ($dataorder['pesanan_subtotal'] + $dataorder['pesanan_kurir']) - $dataorder['dari_deposito'];
+		$tagihan = ($dataorder['pesanan_subtotal'] + $dataorder['pesanan_kurir']) - $dataorder['dari_deposito'] + $dataorder['biaya_packing'] - $dataorder['kode_unik'];
 		
 		if($modul == 'orderdetail') {
 			$file			= '/orderdetail.php';
