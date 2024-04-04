@@ -58,6 +58,7 @@ $data['config_termbelanja']		= '';
 $data['config_orderstatus']		= '';
 $data['config_ordercancel'] 	= '';
 $data['config_orderselesai']	= '';
+$data['config_requestpickup']	= '';
 $data['config_statuskomplit']	= '';
 $data['config_konfirmstatus']	= '';
 $data['config_memberdefault']	= '';
@@ -114,6 +115,8 @@ $data['config_apiurlongkir'] = '';
 $data['config_note_maintenance'] = '';
 $data['config_maintenance'] = '';
 $data['config_apisignature_cekmutasi'] = '';
+$data['config_apiresi_url'] = '';
+$data['config_apiresi_token'] = '';
 $datavalue = array();
 foreach ($setting as $st) {
 	$key = $st['setting_key'];

@@ -20,6 +20,7 @@
                         <li role="presentation"><a href="#tabdataproduk" aria-controls="dataproduk" role="tab" data-toggle="tab">Pengaturan Produk</a></li>
                         <li role="presentation"><a href="#tabdataapi" aria-controls="dataapi" role="tab" data-toggle="tab">API Integrasi Shipping</a></li>
                         <li role="presentation"><a href="#tabapicekmutasi" aria-controls="dataapi" role="tab" data-toggle="tab">API Integrasi Cek Mutasi</a></li>
+                        <li role="presentation"><a href="#tabapiresi" aria-controls="dataapi" role="tab" data-toggle="tab">API Integrasi Resi</a></li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -146,6 +147,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Request Pickup <br>
+                                        <cite>Status untuk melakukan request Resi Otomatis ke ekspedisi</cite>
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select id="orderrequestpickup" name="config_requestpickup" class="form-control">
+                                            <?php foreach ($datastatus as $ord) { ?>
+                                                <option value="<?php echo $ord['ids'] ?>" <?php if ($data['config_requestpickup'] == $ord['ids']) echo "selected" ?>><?php echo stripslashes($ord['nms']) ?></option>
+                                            <?php
+                                            } ?>
+                                        </select>
+
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Form Pengiriman/Shipping<br>
                                         <cite>Menampilkan Form Shipping/Kurir Saat Status Shipping</cite>
@@ -591,6 +608,27 @@
                                     </label>
                                     <div class="col-sm-4">
                                         <input type="text" id="apikeyongkir" name="config_apisignature_cekmutasi" placeholder="API Key" class="form-control" value="<?php echo $data['config_apisignature_cekmutasi'] ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="tabapiresi">
+                            <div class="well">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">API Resi Otomatis<br>
+                                        <cite>API URL</cite>
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="apiurlresi" name="config_apiresi_url" placeholder="API Resi" class="form-control" value="<?php echo $data['config_apiresi_url'] ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">API Token<br>
+                                        <cite>API Token</cite>
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="apiurltoken" name="config_apiresi_token" placeholder="API Token" class="form-control" value="<?php echo $data['config_apiresi_token'] ?>">
                                     </div>
                                 </div>
                             </div>
