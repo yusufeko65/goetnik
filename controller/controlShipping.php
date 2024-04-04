@@ -188,7 +188,7 @@ class controller_Shipping {
 			} else {
 				$tarif = "Rp. ".$this->Fungsi->fuang($cektarif);
 				$nilaitarif = $cektarif;
-				$nilaitotal = (int)$data['subtotal'] + $cektarif - $kodeunik;
+				$nilaitotal = (int)$data['subtotal'] + $cektarif;
 				$total = "Rp. ".$this->Fungsi->fuang($nilaitotal);
 			}
 			if(count($wilayah) > 0){
