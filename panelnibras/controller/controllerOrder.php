@@ -3191,7 +3191,8 @@ class controllerOrder
 				$status = 'error';
 				$pesan = $request['code'] . ' :: ' . $request['error'];
 
-				$nextsave = false;
+				echo json_encode(array("status" => $status, "result" => $pesan));
+				return false;
 			}
 		}
 
