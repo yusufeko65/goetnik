@@ -1886,7 +1886,7 @@ class controller_Order
 
 			if ($dataorder) {
 				foreach ($dataorder as $order) {
-					$totalbelanja = (($order['pesanan_subtotal'] + $order['pesanan_kurir']) - $order['dari_poin'] - $order['dari_deposito']);
+					$totalbelanja = (($order['pesanan_subtotal'] + $order['pesanan_kurir']) - $order['dari_poin'] - $order['dari_deposito'] - $order['kode_unik'] + $order['biaya_packing']);
 					$json[] = array(
 						'noorder' => $order['pesanan_no'],
 						'totalbelanja' => $totalbelanja

@@ -42,7 +42,7 @@ class model_Order
 	function getOrderByIDAutocomplete($noorder, $idmember, $status)
 	{
 		$sql = "select pesanan_no,pesanan_subtotal,pesanan_kurir,
-				dari_poin,dari_deposito
+				dari_poin,dari_deposito,biaya_packing,kode_unik
 				from _order 
 				where pesanan_no like '%" . (int) $noorder . "%' AND pelanggan_id='" . $idmember . "'
 				AND status_id='" . $status . "'";
