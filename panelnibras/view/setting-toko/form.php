@@ -624,6 +624,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">API Cancel Resi<br>
+                                        <cite>API URL</cite>
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="apiurlresicancel" name="config_apiresicancel_url" placeholder="API Resi" class="form-control" value="<?php echo $data['config_apiresicancel_url'] ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label">API Token<br>
                                         <cite>API Token</cite>
                                     </label>

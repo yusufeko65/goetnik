@@ -1419,7 +1419,38 @@ class modelOrder
 		return array("status" => $status);
 	}
 
+	public function simpanDataResi($nopesan,$data){
+		$sql = "INSERT INTO _order_resi
 
+				SET pesanan_no='" . $nopesan . "',
+
+				order_id = '" . $data['id'] . "',
+
+				tracking_id='" . $data['courier']['tracking_id'] . "',
+
+				reference_id='" . $data['reference_id'] . "',
+
+				date_delivery='" . $data['delivery']['datetime'] . "'";
+
+
+		$strsql = $this->db->query($sql);
+
+		if (!$strsql) $error[] = 'Error di table _order_resi';
+
+		if (count($error) > 0) {
+
+			$this->db->rollback();
+
+			$status = 'error';
+		} else {
+
+			$this->db->commit();
+
+			$status = 'success';
+		}
+
+		return $status;
+	}
 
 	public function checkCustomerPoin($id)
 

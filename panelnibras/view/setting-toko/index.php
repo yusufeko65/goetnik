@@ -116,6 +116,7 @@ $data['config_note_maintenance'] = '';
 $data['config_maintenance'] = '';
 $data['config_apisignature_cekmutasi'] = '';
 $data['config_apiresi_url'] = '';
+$data['config_apiresicancel_url'] = '';
 $data['config_apiresi_token'] = '';
 $datavalue = array();
 foreach ($setting as $st) {

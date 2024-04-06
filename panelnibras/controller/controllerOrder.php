@@ -3117,7 +3117,7 @@ class controllerOrder
 		$data['tgl']         = date('Y-m-d H:i:s');
 		$data['ipdata'] = $this->Fungsi->get_client_ip();
 		//$status_pending = $this->Fungsi->fcaridata('_setting','setting_value','setting_key','config_orderstatus');
-		$where = "setting_key IN ('config_jdlsite','config_orderstatus','config_ordercancel','config_requestpickup','config_apiresi_url','config_apiresi_token')";
+		$where = "setting_key IN ('config_jdlsite','config_orderstatus','config_ordercancel','config_requestpickup','config_apiresi_url','config_apiresicancel_url','config_apiresi_token')";
 		$status  = $this->Fungsi->fcaridata3('_setting', 'setting_key,setting_value', $where);
 		$datastatus = [];
 		if ($status) {
@@ -3193,6 +3193,19 @@ class controllerOrder
 
 				echo json_encode(array("status" => $status, "result" => $pesan));
 				return false;
+			}else{
+				$data['noawb'] = $request["courier"]["waybill_id"];
+				// Insert data
+				$status = $this->model->simpanDataResi($data['nopesanan'],$request);
+				if($status=='error'){
+					// Cancel Order
+					$url = $datastatus['config_apiresicancel_url'] . '/' . $request["id"] . '/' . $datastatus['config_apiresi_token']; // path to your JSON file
+					$response = file_get_contents($url); // put the contents of the file into a variable
+					$request = json_decode($response,true);
+
+					echo json_encode(array("status" => $status, "result" => 'Gagal menyimpan data Resi'));
+					return false;
+				}
 			}
 		}
 
