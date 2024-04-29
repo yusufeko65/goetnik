@@ -29,10 +29,18 @@ class modelProduk
 		else return [];
 	}
 
-	function setBarcodeDetailProduk($idoption,$barcode){
-		$sqls = $this->db->query("UPDATE _produk_options	SET
+	function setBarcodeDetailProduk($idoption,$barcode,$stok){
+		if($stok=='' || $stok=='-'){
+			$sqls = $this->db->query("UPDATE _produk_options	SET
 							  barcode='$barcode'
 							  WHERE idopt='$idoption'");
+		}else{
+			$stok = intval($stok);
+			$sqls = $this->db->query("UPDATE _produk_options	SET
+							  barcode='$barcode',
+							  stok='$stok'
+							  WHERE idopt='$idoption'");
+		}
 
 		if ($sqls) {
 			$status = true;

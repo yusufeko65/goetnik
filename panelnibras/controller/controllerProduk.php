@@ -183,7 +183,7 @@ class controllerProduk
 
 				if(!$status){
 					if(!empty($files['id option'])){
-						$stsimport = $this->model->setBarcodeDetailProduk($files['id option'],$files['barcode']);
+						$stsimport = $this->model->setBarcodeDetailProduk($files['id option'],$files['barcode'],$files['stok']);
 						if(!$stsimport){
 							break;
 						}
