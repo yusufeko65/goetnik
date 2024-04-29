@@ -38,7 +38,26 @@ $(function () {
 		return false;
 	});
 
+	$('#nama_penerima').change(function(){
+		check_status_dropship();
+	});
+
+	$('#telp_penerima').change(function(){
+		check_status_dropship();
+	});
+
 });
+
+function check_status_dropship(){
+	if ($('#nama_penerima').val() != $('#nama_pengirim').val() &&
+			$('#telp_pengirim').val() != $('#telp_penerima').val()) {
+
+		// dropship
+		sts_dropship = true;
+	}else{
+		sts_dropship = false;
+	}
+}
 
 function serviskurirtarif(id_propinsi = 0, id_kabupaten = 0, id_kecamatan = 0) {
 	var kecamatan = id_kecamatan;
