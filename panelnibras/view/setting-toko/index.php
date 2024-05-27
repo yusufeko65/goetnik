@@ -49,6 +49,7 @@ $data['config_keywordtag']		= '';
 $data['config_namatoko']		= '';
 $data['config_namapemilik']		= '';
 $data['config_alamattoko']		= '';
+$data['config_kodepostoko'] = '';
 $data['config_email']		    = '';
 $data['config_emailnotif']	    = '';
 $data['config_telp'] 		    = '';

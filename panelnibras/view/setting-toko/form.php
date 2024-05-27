@@ -325,6 +325,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">Kodepos Toko</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="kodepostoko" name="config_kodepostoko" placeholder="Kodepos Toko" class="form-control" value="<?php echo $data['config_kodepostoko'] ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-3 control-label">Email</label>
                                     <div class="col-sm-5">
                                         <input type="text" id="email" name="config_email" placeholder="Email" class="form-control" value="<?php echo $data['config_email'] ?>">
