@@ -120,7 +120,7 @@ switch($menupage){
 	   include "form.php";
 	break;
 	
-	case "viewBukti"
+	case "viewBukti":
 		?>
 			<div class="modal-dialog" style="width:60%">
 				<div class="modal-content">
